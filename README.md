@@ -1,0 +1,1 @@
+https://revolutionidleformulas.github.io
