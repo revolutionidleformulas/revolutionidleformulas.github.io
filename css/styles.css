@@ -1,0 +1,131 @@
+html {
+	// make unscrollable normally
+	overflow: hidden;
+}
+
+body {
+	background-color: #262626;
+	margin: 0;
+	width: 4em;
+	height: 100vh;
+	
+	color: #fff;
+}
+
+.content {
+	position: absolute;
+	top: 0.5em;
+	padding-left: 4.5em;
+	padding-right: 4.5em;
+	
+	// make scrollable and hide scrollbar
+	overflow: hidden;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	
+	// support for old browsers
+	::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.tabs {
+	position: relative;
+	background-color: #454648;
+
+	width: 4em;
+	height: 100%;
+
+	// make scrollable and hide scrollbar
+	overflow: hidden;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+
+	ul {
+		position: relative;
+		width: 3em;
+		height: 3em;
+		padding: 0.5em;
+		margin: 0;
+	}
+	ul.chosen {
+		background-color: #6f6f6f;
+	}
+	ul:hover {
+		transition: ease-out 0.1s;
+		background-color: #6f6f6f;
+	}
+	
+	ul:hover .dropdown {
+		position: fixed;
+		z-index: 3;
+		margin: 0;
+		
+		display: flex;
+		flex-direction: column;
+		
+		left: 4em;
+		width: 10em;
+		min-height: 3em;
+		
+		.dropdown-option {
+			vertical-align: middle;
+			line-height: 3em;
+			
+			.dropdown-icon {
+				position: absolute;
+				width: 2em;
+				height: 2em;
+				padding: 0.5em;
+			}
+			.dropdown-icon > * {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+
+				width: 2em;
+				height: 2em;
+				object-fit: contain;
+				transform: translate(-50%, -50%);
+			}
+			.dropdown-title {
+				position: relative;
+				padding-left: 3em;
+			}
+		}
+		.dropdown-option:hover {
+			transition: ease-out 0.1s;
+			background-color: #6f6f6f;
+		}
+	}
+	.dropdown {
+		background-color: #454648;
+		display: none;
+	}
+
+	ul > * {
+		user-drag: none;
+		-webkit-user-drag: none;
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	ul > img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 2.75em;
+		height: 2.75em;
+
+		object-fit: contain;
+		transform: translate(-50%, -50%);
+	}
+
+	// support for old browsers
+	::-webkit-scrollbar {
+		display: none;
+	}
+}
