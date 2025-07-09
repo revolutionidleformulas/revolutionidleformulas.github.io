@@ -150,8 +150,6 @@ function createZodiacStatsCalculator(parent) {
 				const c = document.createElement("td");
 				const d = document.createElement("td");
 				const e = document.createElement("td");
-				c.id = idStatname + (i + 1);
-				e.id = idStatname + (i + 1);
 				c.style.textAlign = "left";
 				d.innerText = "?";
 				data.statFields[i] = { name: c, value: e };
