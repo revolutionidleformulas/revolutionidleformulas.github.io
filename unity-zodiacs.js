@@ -158,11 +158,11 @@ function createZodiacStatsCalculator(parent) {
 				b.append(e);
 				a.append(b);
 			}
-			updateStatsTable();
 			content.append(a);
 			body.append(content);
-
 			options.append(body);
+
+			updateStatsTable();
 		}
 	}
 }
