@@ -155,10 +155,7 @@ function createZodiacStatsCalculator(parent) {
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"text\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				console.debug(event);
-				data.quality = Decimal.fromString(event.data).min(0);
-				console.debug(Decimal.fromString(event.data));
-				console.debug(data.quality);
+				data.quality = Decimal.fromString(((event.data === null) || event.data.length == 0) ? "0" : event.data).max(0);
 				event.target.value = data.quality.toString();
 				updateStatsTable();
 			});
