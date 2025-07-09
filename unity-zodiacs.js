@@ -142,7 +142,6 @@ function createZodiacStatsCalculator(parent) {
 			body.append(name);
 
 			const content = document.createElement("td");
-
 			const a = document.createElement("table");
 			for (let i = 0; i < 4; i++) {
 				const b = document.createElement("tbody");
@@ -160,6 +159,7 @@ function createZodiacStatsCalculator(parent) {
 				a.append(b);
 			}
 			updateStatsTable();
+			content.append(a);
 			body.append(content);
 
 			options.append(body);
