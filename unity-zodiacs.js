@@ -43,10 +43,10 @@ function createZodiacStatsCalculator(parent) {
 		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
 		const func2 = consts.zodiacStatsFunction.get(statNames[2]);
 		const func3 = consts.zodiacStatsFunction.get(statNames[3]);
-		statvalue1.innerText = func0(score).toString();
-		statvalue2.innerText = func1(score).toString();
-		statvalue3.innerText = func2(score).toString();
-		statvalue4.innerText = func3(score).toString();
+		statvalue1.innerText = func0(score).toPrecision(5);
+		statvalue2.innerText = func1(score).toPrecision(5);
+		statvalue3.innerText = func2(score).toPrecision(5);
+		statvalue4.innerText = func3(score).toPrecision(5);
 	}
 
 	const title = document.createElement("center");
@@ -155,8 +155,11 @@ function createZodiacStatsCalculator(parent) {
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"text\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				data.quality = Decimal.fromString(((event.target.value === null) || event.target.value.length == 0) ? "0" : event.target.value).max(0);
-				event.target.value = data.quality.toString();
+				data.quality = new Decimal(event.target.value);
+				if (Decimal.lt(data.quality, 0) {
+					data.quality = 0;
+					event.target.value = "0";
+				}
 				updateStatsTable();
 			});
 			body.append(content);
