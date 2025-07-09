@@ -1,6 +1,11 @@
 let clickedOnDropdown = false;
 let currentTab;
 
+document.addEventListener("DOMContentLoaded", function(event) {
+	const calculator = document.getElementById("content");
+	if (typeof calculator !== undefined && calculator !== null)
+		document.dispatchEvent(new Event("initializePage", { page: content }));
+});
 window.onload = function() {
 	document.body.append(createContentElement());
 	document.body.prepend(createTabsElement());
@@ -38,6 +43,7 @@ window.onload = function() {
 
 					const content = document.getElementById("content");
 					content.innerHTML = consts.tabs[i].dropdowns[j].inner.contents;
+					document.dispatchEvent(new Event("initializePage", { page: content }));
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;
@@ -56,6 +62,7 @@ window.onload = function() {
 
 					const content = document.getElementById("content");
 					content.innerHTML = consts.tabs[i].dropdowns[0].inner.contents;
+					document.dispatchEvent(new Event("initializePage", { page: content }));
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;

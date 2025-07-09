@@ -1,5 +1,5 @@
 (function() {
-	document.addEventListener("DOMContentLoaded", function(event) {
+	document.addEventListener("initializePage", function(event) {
 		const calculator = document.getElementById("calculator-zodiac-stats");
 		if (typeof calculator !== undefined && calculator !== null)
 			createZodiacStatsCalculator(calculator);
