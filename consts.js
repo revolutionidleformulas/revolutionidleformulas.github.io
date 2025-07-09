@@ -73,7 +73,7 @@ let consts;
 				return Decimal.log10(zodiacScore).times(0.012).add(1);
 			}],
 			["supernovareq", function(zodiacScore) {
-				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.02).add(1));
+				return Decimal.divide(1, Decimal.log10(zodiacScore).times(0.02).add(1));
 			}],
 			["dpgain", function(zodiacScore) {
 				var chance = Decimal.log10(zodiacScore).times(0.05).add(1);
@@ -102,7 +102,7 @@ let consts;
 				return chance;
 			}],
 			["luckadd", function(zodiacScore) {
-				return Decimal.log10(Decimal.dividedBy(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
+				return Decimal.log10(Decimal.divide(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
 			}],
 			["zodiacqualitymult", function(zodiacScore) {
 				return Decimal.log10(zodiacScore).times(0.04).add(1);
