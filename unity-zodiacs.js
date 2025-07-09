@@ -24,8 +24,11 @@ function createZodiacStatsCalculator(parent) {
 		const statvalue4 = data.statFields[3].value;
 		statvalue1.innerText = statvalue2.innerText = statvalue3.innerText = statvalue4.innerText = '???';
 
+		console.debug(data.sign);
 		if (data.sign === undefined) return;
+
 		var statNames = consts.zodiacStats.get(data.sign);
+		console.debug(statNames);
 		if (statNames === undefined) return;
 
 		statname1.innerText = statNames[0];
@@ -81,7 +84,7 @@ function createZodiacStatsCalculator(parent) {
 			}
 			content.innerHTML = html + "</select>";
 			content.firstChild.addEventListener("input", (event) => {
-				data.sign = event.data;
+				data.sign = event.target.value;
 				updateStatsTable();
 			});
 			body.append(content);
@@ -98,7 +101,7 @@ function createZodiacStatsCalculator(parent) {
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"number\" min=1 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				data.level = event.target.value;
+				data.level = event.data;
 				updateStatsTable();
 			});
 			body.append(content);
