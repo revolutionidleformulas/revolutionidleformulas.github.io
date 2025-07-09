@@ -26,7 +26,7 @@ function createZodiacStatsCalculator(parent) {
 		const statvalue4 = document.getElementById(idStatvalue + 4);
 		statvalue1.innerText = statvalue2.innerText = statvalue3.innerText = statvalue4.innerText = '???';
 
-		const statNames = const.zodiacStats.get(data.sign);
+		const statNames = consts.zodiacStats.get(data.sign);
 		if (typeof statNames !== undefined) return;
 
 		statname1.innerText = statNames[0];
