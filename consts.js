@@ -200,7 +200,9 @@ let consts;
 		try {
 			fetch(contentFile).then(response => {
 				if (!response.ok) return "Failed to fetch! Response was not ok";
-				dropdown.contents = response.text();
+				response.text().then(text => {
+					dropdown.contents = text;
+				});
 			}, error => {
 				dropdown.contents = "Error during fetching: " + error;
 			});
