@@ -37,8 +37,7 @@ window.onload = function() {
 					clickedOnDropdown = true;
 
 					const content = document.getElementById("content");
-					content.innerHTML = "";
-					consts.tabs[i].dropdowns[j].contents(content);
+					content.innerHTML = consts.tabs[i].dropdowns[j].contents;
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;
@@ -56,8 +55,7 @@ window.onload = function() {
 					clickedOnDropdown = true;
 
 					const content = document.getElementById("content");
-					content.innerHTML = "";
-					consts.tabs[i].dropdowns[0].contents(content);
+					content.innerHTML = consts.tabs[i].dropdowns[0].contents;
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;
