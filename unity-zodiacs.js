@@ -37,7 +37,7 @@ function createZodiacStatsCalculator(parent) {
 		console.debug(data);
 		var score = Decimal.pow(1.125, new Decimal(data.rarity).add(data.rarityPlus)).times(data.quality).times(Decimal.pow(data.level, 2).add(9));
 		if (data.rarity + data.rarityPlus > 8) score = score.times(2);
-		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).divdedBy(10).pow(2.5));
+		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).dividedBy(10).pow(2.5));
 
 		const func0 = consts.zodiacStatsFunction.get(statNames[0]);
 		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
