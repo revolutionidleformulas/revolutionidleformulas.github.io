@@ -4,6 +4,103 @@ let consts;
 	consts = {
 		zodiacSigns: [ "aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces" ],
 		zodiacRarities: [ "garbage", "common", "uncommon", "rare", "epic", "legendary", "mythic", "godly", "divine", "immortal" ],
+		zodiacStats: new Map([
+			["aries", ["multsgain", "prompower", "ascensionpower", "commonexponent"]],
+			["taurus", ["ipgain", "infinitygain", "genexponent", "multperboughtgen"]],
+			["gemini", ["eternitygain", "epgain", "supernovareq", "labmultpower"]],
+			["cancer", ["dtpcost", "centerdtueff", "ach29reward", "gamespeed"]],
+			["leo", ["lapsspeed", "prompower", "ascensionpower", "commonexponent"]],
+			["virgo", ["starbase", "infinitygain", "genexponent", "multperboughtgen"]],
+			["libra", ["dpgain", "epgain", "supernovareq", "labmultpower"]],
+			["scorpio", ["luckadd", "centerdtueff", "ach29reward", "gamespeed"]],
+			["sagittarius", ["lapsspeed", "slowdownpower", "ascensionpower", "commonexponent"]],
+			["capriorn", ["starbase", "stardustexponent", "genexponent", "multperboughtgen"]],
+			["aquarius", ["dpgain", "freelablevels", "supernovareq", "labmultpower"]],
+			["pisces", ["luckadd", "zodiacqualitymult", "ach29reward", "gamespeed"]]
+		]),
+		zodiacStatsFunction: new Map([
+			["multsgain", function(zodiacScore) {
+				let value = Decimal.pow(1.35, zodiacScore);
+				if (value.e > 1000) value = value.dividedBy(Decimal.pow(10, 1000)).pow(0.1).times(Decimal.pow(10, 1000));
+				if (value.e > 10000) value = value.dividedBy(Decimal.pow(10, 10000)).pow(0.01).times(Decimal.pow(10, 10000));
+				if (value.e > 100000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
+				if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.25).times(5000000));
+				return value;
+			}],
+			["prompower", function(zodiacScore) {
+				let value = Decimal.pow(1.2, Decimal.log10(zodiacScore));
+				if (value.gt(2)) value = value.dividedBy(2).pow(0.3).times(2);
+				return value;
+			}],
+			["commonexponent", function(zodiacScore) {
+				let value = Decimal.log10(zodiacScore).multiply(0.016).add(1);
+				if (value.gt(1.2)) value = value.dividedBy(1.2).pow(0.115).times(1.2);
+				return value;
+			}],
+			["ascensionpower", function(zodiacScore) {
+				let value = Decimal.pow(1.5, Decimal.log10(zodiacScore));
+				if (value.gt(5)) value = value.dividedBy(5).pow(0.25).times(5);
+				return value;
+			}],
+			["slowdownpower", function(zodiacScore) {
+				return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(1.5).round();
+			}],
+			["ipgain", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.025).add(1);
+			}],
+			["infinitygain", function(zodiacScore) {
+				return Decimal.pow(3, Decimal.log10(zodiacScore));
+			}],
+			["genexponent", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.024).add(1);
+			}],
+			["multperboughtgen", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.007).add(1);
+			}],
+			["starbase", function(zodiacScore) {
+				return Decimal.pow(1.8, Decimal.log10(zodiacScore));
+			}],
+			["stardustexponent", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.02).add(1);
+			}],
+			["eternitygain", function(zodiacScore) {
+				return Decimal.pow(2, Decimal.log10(zodiacScore));
+			}],
+			["epgain", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.011).add(1);
+			}],
+			["labmultpower", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.012).add(1);
+			}],
+			["supernovareq", function(zodiacScore) {
+				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.02) + 1);
+			}],
+			["dpgain", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.05).add(1);
+			}],
+			["freelablevels", function(zodiacScore) {
+				return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(3).times(5).round();
+			}],
+			["dtpcost", function(zodiacScore) {
+				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.015) + 1);
+			}],
+			["centerdtueff", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.02).add(1);
+			}],
+			["ach29reward", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.005).add(1);
+			}],
+			["gamespeed", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.1).add(1);
+			}],
+			["luckadd", function(zodiacScore) {
+				return Decimal.log10(Decimal.dividedBy(zodiacScore, 20).pow(0.45).times(20).times(0.07);
+			}],
+			["zodiacqualitymult", function(zodiacScore) {
+				return Decimal.log10(zodiacScore).times(0.04).add(1);
+			}]
+		]),
+
 		tabs: [
 			createTab("assets/score.png", [
 				createDropdown("assets/score.png", "Revolutions", "revolutions.html"),
