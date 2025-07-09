@@ -8,22 +8,20 @@
 
 function createZodiacStatsCalculator(parent) {
 	const id = "calculator-zodiac-stats";
-	const idStatname = "calculator-zodiac-stats_statname";
-	const idStatvalue = "calculator-zodiac-stats_statvalue";
 	parent.classList.add(id);
 
-	const data = { sign: undefined, level: 1 };
+	const data = { sign: undefined, level: 1, statFields: new Array(4) };
 	function updateStatsTable() {
-		const statname1 = document.getElementById(idStatname + 1);
-		const statname2 = document.getElementById(idStatname + 2);
-		const statname3 = document.getElementById(idStatname + 1);
-		const statname4 = document.getElementById(idStatname + 4);
+		const statname1 = data.statFields[0].name;
+		const statname2 = data.statFields[1].name;
+		const statname3 = data.statFields[2].name;
+		const statname4 = data.statFields[3].name;
 		statname1.innerText = statname2.innerText = statname3.innerText = statname4.innerText = '???';
 
-		const statvalue1 = document.getElementById(idStatvalue + 1);
-		const statvalue2 = document.getElementById(idStatvalue + 2);
-		const statvalue3 = document.getElementById(idStatvalue + 1);
-		const statvalue4 = document.getElementById(idStatvalue + 4);
+		const statvalue1 = data.statFields[0].value;
+		const statvalue2 = data.statFields[1].value;
+		const statvalue3 = data.statFields[2].value;
+		const statvalue4 = data.statFields[3].value;
 		statvalue1.innerText = statvalue2.innerText = statvalue3.innerText = statvalue4.innerText = '???';
 
 		const statNames = consts.zodiacStats.get(data.sign);
@@ -144,11 +142,26 @@ function createZodiacStatsCalculator(parent) {
 			body.append(name);
 
 			const content = document.createElement("td");
-			let html = "<table>";
+
+			const a = document.createElement("table");
 			for (let i = 0; i < 4; i++) {
-				html += "<tbody><td id=\"" + idStatname + (i + 1) + "\" style=\"text-align: left;\">???</td><td>=</td><td id=\"" + idStatvalue + (i + 1) + "\">???</td></tbody>";
+				const b = document.createElement("tbody");
+
+				const c = document.createElement("td");
+				const d = document.createElement("td");
+				const e = document.createElement("td");
+				c.id = idStatname + (i + 1);
+				e.id = idStatname + (i + 1);
+				c.style.textAlign = "left";
+				d.innerText = "?";
+				data.statFields[i] = { name: c, value: e };
+
+				b.append(c);
+				b.append(d);
+				b.append(e);
+				a.append(b);
 			}
-			content.innerHTML = html + "</table>";
+			updateStatsTable();
 			body.append(content);
 
 			options.append(body);
