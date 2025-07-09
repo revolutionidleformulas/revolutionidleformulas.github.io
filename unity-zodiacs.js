@@ -1,6 +1,8 @@
 (function() {
 	document.addEventListener("DOMContentLoaded", function(event) {
-		createZodiacStatsCalculator(document.getElementById("calculator-zodiac-stats"));
+		const calculator = document.getElementById("calculator-zodiac-stats");
+		if (typeof calculator !== undefined)
+			createZodiacStatsCalculator(calculator);
 	});
 })();
 
