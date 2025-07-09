@@ -10,7 +10,7 @@ function createZodiacStatsCalculator(parent) {
 	const id = "calculator-zodiac-stats";
 	parent.classList.add(id);
 
-	var data = { sign: undefined, level: 1, statFields: new Array(4) };
+	var data = { sign: undefined, level: 1, rarity: 0, rarityPlus: 0, quality: 1, statFields: new Array(4) };
 	function updateStatsTable() {
 		const statname1 = data.statFields[0].name;
 		const statname2 = data.statFields[1].name;
@@ -24,17 +24,24 @@ function createZodiacStatsCalculator(parent) {
 		const statvalue4 = data.statFields[3].value;
 		statvalue1.innerText = statvalue2.innerText = statvalue3.innerText = statvalue4.innerText = '???';
 
-		console.debug(data.sign);
 		if (data.sign === undefined) return;
 
 		var statNames = consts.zodiacStats.get(data.sign);
-		console.debug(statNames);
 		if (statNames === undefined) return;
 
 		statname1.innerText = statNames[0];
 		statname2.innerText = statNames[1];
 		statname3.innerText = statNames[2];
 		statname4.innerText = statNames[3];
+
+		var score = Decimal.pow(1.125, data.rarity + data.rarityPlus).times(data.quality).times(9 + data.level * data.level);
+		if (rarity + rarityPlus > 8) score = score.times(2);
+		if (data.level >= 100) score = score.times(Decimal.pow((score - 90) / 10, 2.5));
+
+		statvalue1.innerText = consts.zodiacStatsFunction.get(statNames[0])(score).toString();
+		statvalue2.innerText = consts.zodiacStatsFunction.get(statNames[1])(score).toString();
+		statvalue3.innerText = consts.zodiacStatsFunction.get(statNames[2])(score).toString();
+		statvalue4.innerText = consts.zodiacStatsFunction.get(statNames[3])(score).toString();
 	}
 
 	const title = document.createElement("center");
@@ -121,6 +128,14 @@ function createZodiacStatsCalculator(parent) {
 				html += "<option value=\"" + consts.zodiacRarities[i] + "\">" + consts.zodiacRarities[i] + "</option>";
 			}
 			content.innerHTML = html + "</select>+<input type=\"number\" min=0 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
+			content.firstChild.addEventListener("input", (event) => {
+				data.rarity = 0;
+				updateStatsTable();
+			});
+			content.lastChild.addEventListener("input", (event) => {
+				data.rarityPlus = event.data;
+				updateStatsTable();
+			});
 			body.append(content);
 
 			options.append(body);
@@ -134,6 +149,12 @@ function createZodiacStatsCalculator(parent) {
 
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"text\" />";
+			content.firstChild.addEventListener("input", (event) => {
+				console.debug(event);
+				data.quality = Decimal.fromString(event.target.value).min(0);
+				event.target.value = data.quality.toString();
+				updateStatsTable();
+			});
 			body.append(content);
 
 			options.append(body);
