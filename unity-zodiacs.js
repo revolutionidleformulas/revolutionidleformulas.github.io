@@ -38,10 +38,14 @@ function createZodiacStatsCalculator(parent) {
 		if (data.rarity + data.rarityPlus > 8) score = score.times(2);
 		if (data.level >= 100) score = score.times(Decimal.pow((data.level - 90) / 10, 2.5));
 
-		statvalue1.innerText = consts.zodiacStatsFunction.get(statNames[0])(score).toString();
-		statvalue2.innerText = consts.zodiacStatsFunction.get(statNames[1])(score).toString();
-		statvalue3.innerText = consts.zodiacStatsFunction.get(statNames[2])(score).toString();
-		statvalue4.innerText = consts.zodiacStatsFunction.get(statNames[3])(score).toString();
+		const func0 = consts.zodiacStatsFunction.get(statNames[0]);
+		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
+		const func2 = consts.zodiacStatsFunction.get(statNames[2]);
+		const func3 = consts.zodiacStatsFunction.get(statNames[3]);
+		statvalue1.innerText = func0(score).toString();
+		statvalue2.innerText = func1(score).toString();
+		statvalue3.innerText = func2(score).toString();
+		statvalue4.innerText = func3(score).toString();
 	}
 
 	const title = document.createElement("center");
