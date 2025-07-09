@@ -35,9 +35,9 @@ function createZodiacStatsCalculator(parent) {
 		statname4.innerText = statNames[3];
 
 		console.debug(data);
-		var score = Decimal.pow(1.125, data.rarity + data.rarityPlus).times(data.quality).times(9 + data.level * data.level);
+		var score = Decimal.pow(1.125, new Decimal(data.rarity).add(data.rarityPlus)).times(data.quality).times(Decimal.pow(data.level, 2).add(9));
 		if (data.rarity + data.rarityPlus > 8) score = score.times(2);
-		if (data.level >= 100) score = score.times(Decimal.pow((data.level - 90) / 10, 2.5));
+		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).divdedBy(10).pow(2.5));
 
 		const func0 = consts.zodiacStatsFunction.get(statNames[0]);
 		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
@@ -157,6 +157,8 @@ function createZodiacStatsCalculator(parent) {
 			content.firstChild.addEventListener("input", (event) => {
 				console.debug(event);
 				data.quality = Decimal.fromString(event.data).min(0);
+				console.debug(Decimal.fromString(event.data));
+				console.debug(data.quality);
 				event.target.value = data.quality.toString();
 				updateStatsTable();
 			});
