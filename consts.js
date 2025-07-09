@@ -24,7 +24,7 @@ let consts;
 				if (value.e > 1000) value = value.dividedBy(Decimal.pow(10, 1000)).pow(0.1).times(Decimal.pow(10, 1000));
 				if (value.e > 10000) value = value.dividedBy(Decimal.pow(10, 10000)).pow(0.01).times(Decimal.pow(10, 10000));
 				if (value.e > 100000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
-				if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.25).times(5000000));
+				if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.01).times(5000000));
 				return value;
 			}],
 			["prompower", function(zodiacScore) {
