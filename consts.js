@@ -195,7 +195,7 @@ let consts;
 		return { icon: iconPath, dropdowns: dropdowns };
 	}
 
-	function createDropdown(iconPath, name, contentFile) {
+	async function createDropdown(iconPath, name, contentFile) {
 		const contents = await fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
 			return response.text();
