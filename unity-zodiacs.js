@@ -157,7 +157,7 @@ function createZodiacStatsCalculator(parent) {
 			content.firstChild.addEventListener("input", (event) => {
 				console.debug(event);
 				data.quality = Decimal.fromString(event.data).min(0);
-				event.data = data.quality.toString();
+				event.target.value = data.quality.toString();
 				updateStatsTable();
 			});
 			body.append(content);
