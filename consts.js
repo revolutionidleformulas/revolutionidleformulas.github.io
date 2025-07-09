@@ -206,6 +206,7 @@ let consts;
 			}, error => {
 				dropdown.contents = "Error during fetching: " + error;
 			});
+		}
 		catch (e) {
 			dropdown.contents = "Error during loading tab contents: " + e;
 		}
