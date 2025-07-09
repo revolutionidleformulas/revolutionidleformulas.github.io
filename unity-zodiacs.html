@@ -26,7 +26,7 @@ For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (
 	</tbody>
 	<tbody>
 		<th>Ascension Power</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 9318.85 & : \ 1.5^{\lg{\text{ZS}}} 9318.85 \lessapprox \text{ZS} & : \ 5 \times (\frac{1.5^{\lg{\text{ZS}}}}{5})^{0.25} \end{array} \right. \)</td>
+		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 9318.85 & : \ 1.5^{\lg{\text{ZS}}} \\ 9318.85 \lessapprox \text{ZS} & : \ 5 \times (\frac{1.5^{\lg{\text{ZS}}}}{5})^{0.25} \end{array} \right. \)</td>
 	</tbody>
 	<tbody>
 		<th>Laps Speed</th>
@@ -78,11 +78,7 @@ For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (
 	</tbody>
 	<tbody>
 		<th>DP Gain</th>
-		<td>TODO: port</td>
-/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
-						+ " \\text{Score} \\lessapprox 10^{10} & : \\ 1 + 0.05 \\times \\lg{\\text{Score}} \\\\"
-						+ " 10^{10} \\lessapprox \\text{Score} & : \\ 1.5 \\times (\\frac{1 + 0.05 \\times \\lg{\\text{Score}}}{1.5})^{0.4} \\\\"
-						+ "\\end{array} \\right.") */
+		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 10^{10} & : \ 1 + 0.05 \times \lg{\text{ZS}} \\ 10^{10} \lessapprox \text{ZS} & : \ 1.5 \times (\frac{1 + 0.05 \times \lg{\text{ZS}}}{1.5})^{0.4} \\ \end{array} \right. \)</td>
 	</tbody>
 	<tbody>
 		<th>Free Lab Levels</th>
@@ -90,11 +86,7 @@ For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (
 	</tbody>
 	<tbody>
 		<th>DTP Cost</th>
-		<td>TODO: port</td>
-/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
-						+ " \\text{Score} \\lessapprox 4.71 & : \\ \\frac{1}{1 + 0.015 \\times \\lg{\\text{Score}}} \\\\"
-						+ " 4.71 \\lessapprox \\text{Score} & : \\ 0.99 \\times (\\frac{1}{0.99 \\times (1 + 0.015 \\times \\lg{\\text{Score}})})^{0.5} \\\\"
-						+ "\\end{array} \\right.") */
+		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 4.71 & : \ \frac{1}{1 + 0.015 \times \lg{\text{ZS}}} \\ 4.71 \lessapprox \text{ZS} & : \ 0.99 \times (\frac{1}{0.99 \times (1 + 0.015 \times \lg{\text{ZS}})})^{0.5} \\ \end{array} \right. \)</td>
 	</tbody>
 	<tbody>
 		<th>Center DTU Effect</th>
@@ -102,19 +94,11 @@ For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (
 	</tbody>
 	<tbody>
 		<th>Ach.29 Reward</th>
-		<td>TODO: port</td>
-/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
-						+ " \\text{Score} < 10^4 & : \\ 1 + 0.005 \\times \\lg{\\text{Score}} \\\\"
-						+ " 10^4 \\leq \\text{Score} & : \\ 1.02 \\times (\\frac{1 + 0.005 \\times \\lg{\\text{Score}}}{1.02})^{0.05} \\\\"
-						+ "\\end{array} \\right.") */
+		<td>\( \left\{ \begin{array}{cl} \text{ZS} < 10^4 & : \ 1 + 0.005 \times \lg{\text{ZS}} \\ 10^4 \leq \text{ZS} & : \ 1.02 \times (\frac{1 + 0.005 \times \lg{\text{ZS}}}{1.02})^{0.05} \\ \end{array} \right. \)</td>
 	</tbody>
 	<tbody>
 		<th>Game Speed</th>
-		<td>TODO: port</td>
-/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
-						+ " \\text{Score} < 10^{10} & : \\ 1 + 0.1 \\times \\lg{\\text{Score}} \\\\"
-						+ " 10^{10} \\leq \\text{Score} & : \\ 2 \\times (\\frac{1 + 0.1 \\times \\lg{\\text{Score}}}{2})^{0.02} \\\\"
-						+ "\\end{array} \\right.") */
+		<td>\( \left\{ \begin{array}{cl} \text{ZS} < 10^{10} & : \ 1 + 0.1 \times \lg{\text{ZS}} \\ 10^{10} \leq \text{ZS} & : \ 2 \times (\frac{1 + 0.1 \times \lg{\text{ZS}}}{2})^{0.02} \\ \end{array} \right. \)</td>
 	</tbody>
 	<tbody>
 		<th>Luck</th>
