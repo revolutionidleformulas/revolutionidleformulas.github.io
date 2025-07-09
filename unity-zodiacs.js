@@ -10,7 +10,7 @@ function createZodiacStatsCalculator(parent) {
 	const id = "calculator-zodiac-stats";
 	parent.classList.add(id);
 
-	const data = { sign: undefined, level: 1, statFields: new Array(4) };
+	var data = { sign: undefined, level: 1, statFields: new Array(4) };
 	function updateStatsTable() {
 		const statname1 = data.statFields[0].name;
 		const statname2 = data.statFields[1].name;
