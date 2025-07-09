@@ -5,4 +5,142 @@
 <div id="calculator-zodiac-stats"></div>
 
 <p>To put it simply, zodiac stats are culmination of zodiacs level, rarity and quality, aka \"score\". Score is calculated using the following formula:</p><br/>
-\( E=mc^2 \)
+\( \text{Score} = 1.125^R \times Q \times (9 + L^2} \times \left\{ \begin{array}{cl} 8 < R & : \ 2 \\ R \leq 8 & : \ 1 \end{array} \right. \times \left\{ \begin{array}{cl} L \geq 100 & : \ (\frac{L - 90}{10})^{2.5} \\ L < 100 & : \ 1 \end{array} \right. \)
+<br/>
+<center>where \( R \) is rarity, \( Q \) is quality and \( L \) is level.</center><br/>
+For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (\( 9 \)). Immortal+X are fairly straightforward: \( R = 9 + X \).<br/>
+
+<p>Each zodiac stat uses zodiac score (shortened to \( \text{ZS} \) here) as part of their formulas:</p>
+<table>
+	<tbody>
+		<th>Mults Gain</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 7672.61 & : \\ 1.35^\\text{Score} \\\\"
+						+ " 7672.61 \\lessapprox \\text{Score} \\lessapprox 698207.39 & : \\ 10^{900} \\times 1.35^{0.1 \\times \\text{Score}} \\\\"
+						+ " 698207.39 \\lessapprox \\text{Score} \\lessapprox 7.6 \\times 10^9 & : \\ 10^{9009} \\times 1.35^{0.001 \\times \\text{Score}} \\\\"
+						+ " 7.6 \\times 10^9 \\lessapprox \\text{Score} \\lessapprox 4.22 \\times 10^{5.32 \\times 10^9}  & : \\ 10^{10^6 \\times (9.009 \\times 10^{-6} \\times \\lg(1.35) \\times \\lg{\\text{Score}})^{0.25}} \\\\"
+						+ " 10^{5.32 \\times 10^9} \\lessapprox \\text{Score} & : \\ 10^{5 \\times 10^6 \\times (\\frac{(9.009 \\times 10^{-6} \\times \\lg(1.35) \\times \\lg{\\text{Score}})^{0.25}}{5})^{0.25}} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Promotion Power</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 6335.55 & : \\ 1.2^{\\lg{\\text{Score}}} \\\\"
+						+ " 6335.55 \\lessapprox \\text{Score} & : \\ 2 \\times (\\frac{1.2^{\\lg{\\text{Score}}}}{2})^{0.3} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Common Exponent</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 3.16 \\times 10^{12} & : \\ 1 + 0.016 \\times \\lg{\\text{Score}} \\\\"
+						+ " 3.16 \\times 10^{12} \\lessapprox \\text{Score} & : \\ 1.2 \\times (\\frac{1 + 0.016 \\times \\lg{\\text{Score}}}{1.2})^{0.112} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Ascension Power</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 9318.85 & : \\ 1.5^{\\lg{\\text{Score}}} \\\\"
+						+ " 9318.85 \\lessapprox \\text{Score} & : \\ 5 \\times (\\frac{1.5^{\\lg{\\text{Score}}}}{5})^{0.25} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Laps Speed</th>
+		<td>\( 2^{\lg(\text{ZS})} \)</td>
+	</tbody>
+	<tbody>
+		<th>Slowdown Power</th>
+		<td>\( \left[ (\lg(\text{ZS} + 9))^{1.5} \right] \)</td>
+	</tbody>
+	<tbody>
+		<th>IP Gain</th>
+		<td>\( 1 + 0.025 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Infinity Gain</th>
+		<td>\( 3^{\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Generator Exponent</th>
+		<td>\( 1 + 0.024 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Mult Per Bought Gen</th>
+		<td>\( 1 + 0.007 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Star Base</th>
+		<td>\( 1.8^{\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Stardust Exponent</th>
+		<td>\( 1 + 0.02 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Eternity Gain</th>
+		<td>\( 2^{\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>EP Gain</th>
+		<td>\( 1 + 0.011 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Lab Mult Power</th>
+		<td>\( 1 + 0.012 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Supernova Req</th>
+		<td>\( \frac{1}{1 + 0.02 \times {\lg{\text{ZS}}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>DP Gain</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 10^{10} & : \\ 1 + 0.05 \\times \\lg{\\text{Score}} \\\\"
+						+ " 10^{10} \\lessapprox \\text{Score} & : \\ 1.5 \\times (\\frac{1 + 0.05 \\times \\lg{\\text{Score}}}{1.5})^{0.4} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Free Lab Levels</th>
+		<td>\( \left[ 5 \times (\lg{\text{ZS} + 9})^3 \right] \)</td>
+	</tbody>
+	<tbody>
+		<th>DTP Cost</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} \\lessapprox 4.71 & : \\ \\frac{1}{1 + 0.015 \\times \\lg{\\text{Score}}} \\\\"
+						+ " 4.71 \\lessapprox \\text{Score} & : \\ 0.99 \\times (\\frac{1}{0.99 \\times (1 + 0.015 \\times \\lg{\\text{Score}})})^{0.5} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Center DTU Effect</th>
+		<td>\( 1 + 0.02 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Ach.29 Reward</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} < 10^4 & : \\ 1 + 0.005 \\times \\lg{\\text{Score}} \\\\"
+						+ " 10^4 \\leq \\text{Score} & : \\ 1.02 \\times (\\frac{1 + 0.005 \\times \\lg{\\text{Score}}}{1.02})^{0.05} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Game Speed</th>
+		<td>TODO: port</td>
+/*						katex.renderToString("\\left\\{ \\begin{array}{cl}"
+						+ " \\text{Score} < 10^{10} & : \\ 1 + 0.1 \\times \\lg{\\text{Score}} \\\\"
+						+ " 10^{10} \\leq \\text{Score} & : \\ 2 \\times (\\frac{1 + 0.1 \\times \\lg{\\text{Score}}}{2})^{0.02} \\\\"
+						+ "\\end{array} \\right.") */
+	</tbody>
+	<tbody>
+		<th>Luck</th>
+		<td>\( 0.07 \times {\lg{20 \times (\frac{\text{ZS}}{20})^{0.45}}} \)</td>
+	</tbody>
+	<tbody>
+		<th>Quality Mult</th>
+		<td>\( 1 + 0.04 \times {\lg{\text{ZS}}} \)</td>
+	</tbody>
+</table>
