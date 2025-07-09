@@ -1,7 +1,4 @@
-html {
-	// make unscrollable normally
-	overflow: hidden;
-}
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
 	background-color: #262626;
@@ -9,14 +6,24 @@ body {
 	width: 4em;
 	height: 100vh;
 	
+	font-family: 'Balsamiq Sans', 'Linux Libertine', 'Georgia', 'Times', sans-serif;
 	color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 0;
+}
+
+p {
+	margin-bottom: 0;
+	text-indent: 2em;
 }
 
 .content {
 	position: absolute;
 	top: 0.5em;
 	padding-left: 4.5em;
-	padding-right: 4.5em;
+	width: calc(100% - 5em);
 	
 	// make scrollable and hide scrollbar
 	overflow: hidden;
@@ -31,11 +38,14 @@ body {
 }
 
 .tabs {
-	position: relative;
+	position: fixed;
 	background-color: #454648;
+	left: 0;
+	top: 0;
 
 	width: 4em;
 	height: 100%;
+	z-index: 2;
 
 	// make scrollable and hide scrollbar
 	overflow: hidden;
@@ -58,12 +68,13 @@ body {
 		background-color: #6f6f6f;
 	}
 	
-	ul:hover .dropdown {
+	.dropdown {
 		position: fixed;
+		background-color: #454648;
 		z-index: 3;
 		margin: 0;
 		
-		display: flex;
+		display: none;
 		flex-direction: column;
 		
 		left: 4em;
@@ -100,9 +111,8 @@ body {
 			background-color: #6f6f6f;
 		}
 	}
-	.dropdown {
-		background-color: #454648;
-		display: none;
+	ul:hover .dropdown {
+		display: flex;
 	}
 
 	ul > * {
@@ -127,5 +137,14 @@ body {
 	// support for old browsers
 	::-webkit-scrollbar {
 		display: none;
+	}
+}
+
+.calculator-zodiac-stats {
+	float: right;
+
+	th {
+		text-align: left;
+		vertical-align: top;
 	}
 }

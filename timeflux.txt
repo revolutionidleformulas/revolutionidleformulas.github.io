@@ -1,0 +1,35 @@
+
+					html += "<h1>Gains:</h1>"
+					html += katex.renderToString(
+						"\\text{Time Flux (per hour)} = 3600 \\times \\frac{\\text{TF Gain Level} + 1}{\\text{TF Gain Level} + 10} - \\left\\{ \\begin{array}{cl}"
+							+ " \\text{Offline Flux On} & : \\ \\text{OF Percent} \\times \\min(3600 \\times \\frac{\\text{TF Gain Level} + 1}{\\text{TF Gain Level} + 10}, 1800) \\\\"
+							+ " \\text{Offline Flux Off} & : \\ 0"
+						+ "\\end{array} \\right."
+					, { throwOnError: false });
+					html += "<br/>"
+					html += katex.renderToString("\\text{Offline Flux (per hour)} = \\left\\{ \\begin{array}{cl}"
+						+ " \\text{Offline Flux On} & : \\ 5 \\times \\frac{\\text{OF Percent} \\times \\min(3600 \\times \\frac{\\text{TF Gain Level} + 1}{\\text{TF Gain Level} + 10}, 1800)}{3} + 600 \\\\"
+						+ " \\text{Offline Flux Off} & : \\ 0"
+					+ "\\end{array} \\right."
+					, { throwOnError: false });
+					html += "<br/>"
+					html += katex.renderToString(
+						"\\text{Max Time Flux} = 3600 \\times 2^\\text{TF Capacity Level}"
+					, { throwOnError: false });
+					html += "<br/>"
+					html += katex.renderToString(
+						"\\text{Max Offline Flux} = 86400 \\times 2^\\text{OF Capacity Level}"
+					, { throwOnError: false });
+
+					html += "<h1>Costs:</h1>"
+					html += katex.renderToString(
+						"\\text{Time Flux Capacity Cost} = 1800 \\times 2^\\text{TF Capacity Level}"
+					, { throwOnError: false });
+					html += "<br/>";
+					html += katex.renderToString(
+						"\\text{Time Flux Gain Cost} = 3600 \\times 1.75^\\text{TF Gain Level}"
+					, { throwOnError: false });
+					html += "<br/>";
+					html += katex.renderToString(
+						"\\text{Offline Flux Gain Cost} = 18000 \\times 2^\\text{OF Capacity Level}"
+					, { throwOnError: false });
