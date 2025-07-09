@@ -199,7 +199,7 @@ let consts;
 		let dropdown = { icon: iconPath, name: name, contents: "Loading..." };
 		fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
-			dropdown.contents = response.text().text();
+			dropdown.contents = response.text();
 		}, error => {
 			dropdown.contents = "Error during fetching: " + error;
 		});
