@@ -196,15 +196,16 @@ let consts;
 	}
 
 	function createDropdown(iconPath, name, contentFile) {
-		return { icon: iconPath, name: name, contents: fetch(contentFile).then(response => {
+		let contents;
+		fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
 			return response.text();
 		}).then(data => {
-			console.debug(data);
-			return data;
+			contents = data;
 		}).catch(error => {
 			console.error('Error fetching content:', error);
-			return "Error loading content.";
-		}) };
+			contents = "Error loading content.";
+		});
+		return { icon: iconPath, name: name, contents: contents };
 	}
 })();
