@@ -113,7 +113,7 @@ function createZodiacStatsCalculator(parent) {
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"number\" min=1 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				data.level = event.target.value;
+				data.level = new Decimal(event.target.value);
 				updateStatsTable();
 			});
 			body.append(content);
@@ -138,7 +138,7 @@ function createZodiacStatsCalculator(parent) {
 				updateStatsTable();
 			});
 			content.lastChild.addEventListener("input", (event) => {
-				data.rarityPlus = event.target.value;
+				data.rarityPlus = new Decimal(event.target.value);
 				updateStatsTable();
 			});
 			body.append(content);
