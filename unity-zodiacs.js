@@ -144,7 +144,7 @@ function createZodiacStatsCalculator(parent) {
 			body.append(name);
 
 			const content = document.createElement("td");
-			let html = "<table">";
+			let html = "<table>";
 			for (let i = 0; i < 4; i++) {
 				html += "<tbody><td id=\"" + idStatname + (i + 1) + "\" style=\"text-align: left;\">???</td><td>=</td><td id=\"" + idStatvalue + (i + 1) + "\">???</td></tbody>";
 			}
