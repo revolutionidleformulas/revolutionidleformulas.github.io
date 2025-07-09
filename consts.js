@@ -73,25 +73,33 @@ let consts;
 				return Decimal.log10(zodiacScore).times(0.012).add(1);
 			}],
 			["supernovareq", function(zodiacScore) {
-				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.02) + 1);
+				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.02).add(1));
 			}],
 			["dpgain", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.05).add(1);
+				var chance = Decimal.log10(zodiacScore).times(0.05).add(1);
+				if (chance.gt(1.5)) chance = chance.dividedBy(1.5).pow(0.4).times(1.5);
+				return chance;
 			}],
 			["freelablevels", function(zodiacScore) {
 				return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(3).times(5).round();
 			}],
 			["dtpcost", function(zodiacScore) {
-				return new Decimal(1).dividedBy(Decimal.log10(zodiacScore).times(0.015) + 1);
+				var chance = Decimal.dOne.dividedBy(Decimal.log10(zodiacScore).times(0.015).add(1));
+				if (chance.gt(0.99)) chance = chance.dividedBy(0.99).pow(0.5).times(0.99);
+				return chance;
 			}],
 			["centerdtueff", function(zodiacScore) {
 				return Decimal.log10(zodiacScore).times(0.02).add(1);
 			}],
 			["ach29reward", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.005).add(1);
+				var chance = Decimal.log10(zodiacScore).times(0.005).add(1);
+				if (chance.gt(1.5)) chance = chance.dividedBy(1.02).pow(0.05).times(1.02);
+				return chance;
 			}],
 			["gamespeed", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.1).add(1);
+				var chance = Decimal.log10(zodiacScore).times(0.1).add(1);
+				if (chance.gt(2)) chance = chance.dividedBy(2).pow(0.02).times(2);
+				return chance;
 			}],
 			["luckadd", function(zodiacScore) {
 				return Decimal.log10(Decimal.dividedBy(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
