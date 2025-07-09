@@ -94,7 +94,7 @@ let consts;
 				return Decimal.log10(zodiacScore).times(0.1).add(1);
 			}],
 			["luckadd", function(zodiacScore) {
-				return Decimal.log10(Decimal.dividedBy(zodiacScore, 20).pow(0.45).times(20).times(0.07);
+				return Decimal.log10(Decimal.dividedBy(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
 			}],
 			["zodiacqualitymult", function(zodiacScore) {
 				return Decimal.log10(zodiacScore).times(0.04).add(1);
