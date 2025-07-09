@@ -196,9 +196,10 @@ let consts;
 	}
 
 	function createDropdown(iconPath, name, contentFile) {
-		return { icon: iconPath, name: name, contents: await fetch(contentFile).then(response => {
+		const contents = await fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
 			return response.text();
-		}) };
+		});
+		return { icon: iconPath, name: name, contents: contents };
 	}
 })();
