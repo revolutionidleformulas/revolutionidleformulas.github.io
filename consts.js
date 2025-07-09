@@ -93,7 +93,7 @@ let consts;
 			}],
 			["ach29reward", function(zodiacScore) {
 				var chance = Decimal.log10(zodiacScore).times(0.005).add(1);
-				if (chance.gt(1.5)) chance = chance.dividedBy(1.02).pow(0.05).times(1.02);
+				if (chance.gt(1.02)) chance = chance.dividedBy(1.02).pow(0.05).times(1.02);
 				return chance;
 			}],
 			["gamespeed", function(zodiacScore) {
