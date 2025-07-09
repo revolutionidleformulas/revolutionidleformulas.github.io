@@ -55,7 +55,7 @@ let consts;
 			fetch(contentFile).then(response => {
 				if (!response.ok) return "Failed to fetch! Response was not ok";
 				response.text().then(text => {
-					dropdown.contents = text;
+					dropdown.contents = text.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
 				});
 			}, error => {
 				dropdown.contents = "Error during fetching: " + error;

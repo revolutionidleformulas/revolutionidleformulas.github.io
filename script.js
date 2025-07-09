@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	if (typeof calculator !== undefined && calculator !== null)
 		document.dispatchEvent(new Event("initializePage", { page: content }));
 });
+
 window.onload = function() {
 	document.body.append(createContentElement());
 	document.body.prepend(createTabsElement());
