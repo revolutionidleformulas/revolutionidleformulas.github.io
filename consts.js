@@ -1,31 +1,31 @@
 let consts;
 
-(async function() {
+(function() {
 	consts = {
 		zodiacSigns: [ "aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces" ],
 		zodiacRarities: [ "garbage", "common", "uncommon", "rare", "epic", "legendary", "mythic", "godly", "divine", "immortal" ],
 		tabs: [
 			createTab("assets/score.png", [
-				await createDropdown("assets/score.png", "Revolutions", "revolutions.html"),
-				await createDropdown("assets/prestige.png", "Prestige", "prestige.html"),
-				await createDropdown("assets/promote.png", "Promote", "promote.html")
+				createDropdown("assets/score.png", "Revolutions", "revolutions.html"),
+				createDropdown("assets/prestige.png", "Prestige", "prestige.html"),
+				createDropdown("assets/promote.png", "Promote", "promote.html")
 			]),
 			createTab("assets/infinity_64.png", [
-				await createDropdown("assets/infinity_64.png", "Main", "infinity-main.html"),
-				await createDropdown("assets/infinity_64.png", "Tree Upgrades", "infinity-tree.html"),
-				await createDropdown("assets/flash_1_64.png", "Generators", "generators.html"),
-				await createDropdown("assets/stardust_64.png", "Stars", "stars.html")
+				createDropdown("assets/infinity_64.png", "Main", "infinity-main.html"),
+				createDropdown("assets/infinity_64.png", "Tree Upgrades", "infinity-tree.html"),
+				createDropdown("assets/flash_1_64.png", "Generators", "generators.html"),
+				createDropdown("assets/stardust_64.png", "Stars", "stars.html")
 			]),
 			createTab("assets/eternity_64.png", [
-				await createDropdown("assets/eternity_64.png", "Milestones", "eternity-milestones.html"),
-				await createDropdown("assets/a1_1.png", "Animals", "animals.html"),
-				await createDropdown("assets/flask_128.png", "Laboratory", "laboratory.html"),
-				await createDropdown("assets/supernova_512.png", "Supernova", "supernova.html"),
-				await createDropdown("assets/dilation_go_64.png", "Dilation", "dilation.html"),
-				await createDropdown("assets/loaddt.png", "Dilation Tree", "dilation-tree.html")
+				createDropdown("assets/eternity_64.png", "Milestones", "eternity-milestones.html"),
+				createDropdown("assets/a1_1.png", "Animals", "animals.html"),
+				createDropdown("assets/flask_128.png", "Laboratory", "laboratory.html"),
+				createDropdown("assets/supernova_512.png", "Supernova", "supernova.html"),
+				createDropdown("assets/dilation_go_64.png", "Dilation", "dilation.html"),
+				createDropdown("assets/loaddt.png", "Dilation Tree", "dilation-tree.html")
 			]),
 			createTab("assets/unity_64.png", [
-				await createDropdown("assets/astrology_1_128.png", "Zodiacs", "unity-zodiacs.html" /*function(content) {
+				createDropdown("assets/astrology_1_128.png", "Zodiacs", "unity-zodiacs.html" /*function(content) {
 					let html = "";
 
 					html += "<center><h1>Zodiacs</h1></center>";
@@ -172,21 +172,21 @@ let consts;
 
 					content.innerHTML = html;
 				}*/),
-				await createDropdown("assets/astrology_2_128.png", "Factors", "factors.html"),
-				await createDropdown("assets/shop_planet.png", "Planet Shop", "planet-shop.html"),
-				await createDropdown("assets/1.png", "Relics", "relics.html")
+				createDropdown("assets/astrology_2_128.png", "Factors", "factors.html"),
+				createDropdown("assets/shop_planet.png", "Planet Shop", "planet-shop.html"),
+				createDropdown("assets/1.png", "Relics", "relics.html")
 			]),
 			createTab("assets/attacks_64.png", [
-				await createDropdown("assets/gold_64.png", "Attacks", "attacks.html")
+				createDropdown("assets/gold_64.png", "Attacks", "attacks.html")
 			]),
 			createTab("assets/achievements_64.png", [
-				await createDropdown("assets/achievements_64.png", "Achievements", "achievements.html")
+				createDropdown("assets/achievements_64.png", "Achievements", "achievements.html")
 			]),
 			createTab("assets/time_flux_64.png", [
-				await createDropdown("assets/time_flux_64.png", "Time Flux", "time-flux.html")
+				createDropdown("assets/time_flux_64.png", "Time Flux", "time-flux.html")
 			]),
 			createTab("assets/option_64.png", [
-				await createDropdown("assets/option_64.png", "Settings", "settings.html")
+				createDropdown("assets/option_64.png", "Settings", "settings.html")
 			])
 		]
 	};
@@ -195,11 +195,13 @@ let consts;
 		return { icon: iconPath, dropdowns: dropdowns };
 	}
 
-	async function createDropdown(iconPath, name, contentFile) {
-		const contents = await fetch(contentFile).then(response => {
+	function createDropdown(iconPath, name, contentFile) {
+		let dropdown = { icon: iconPath, name: name, contents: "Loading..." };
+		fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
-			return response.text();
+			dropdown.contents = response.text();
+			return dropdown;
 		});
-		return { icon: iconPath, name: name, contents: contents };
+		return { inner: dropdown };
 	}
 })();

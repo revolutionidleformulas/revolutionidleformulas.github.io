@@ -23,13 +23,13 @@ window.onload = function() {
 				const dropdownIcon = document.createElement("div");
 				dropdownIcon.classList.add("dropdown-icon");
 				const dropdownImg = document.createElement("img");
-				dropdownImg.src = consts.tabs[i].dropdowns[j].icon;
+				dropdownImg.src = consts.tabs[i].dropdowns[j].inner.icon;
 				dropdownIcon.append(dropdownImg);
 				dropdownOption.append(dropdownIcon);
 
 				const dropdownText = document.createElement("div");
 				dropdownText.classList.add("dropdown-title");
-				dropdownText.innerText = consts.tabs[i].dropdowns[j].name;
+				dropdownText.innerText = consts.tabs[i].dropdowns[j].inner.name;
 				dropdownOption.append(dropdownText);
 
 				dropdownOption.addEventListener("click", function() {
@@ -37,7 +37,7 @@ window.onload = function() {
 					clickedOnDropdown = true;
 
 					const content = document.getElementById("content");
-					content.innerHTML = consts.tabs[i].dropdowns[j].contents;
+					content.innerHTML = consts.tabs[i].dropdowns[j].inner.contents;
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;
@@ -55,7 +55,7 @@ window.onload = function() {
 					clickedOnDropdown = true;
 
 					const content = document.getElementById("content");
-					content.innerHTML = consts.tabs[i].dropdowns[0].contents;
+					content.innerHTML = consts.tabs[i].dropdowns[0].inner.contents;
 
 					if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 					currentTab = icon;
