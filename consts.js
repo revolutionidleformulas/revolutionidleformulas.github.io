@@ -199,7 +199,10 @@ let consts;
 		return { icon: iconPath, name: name, contents: fetch(contentFile).then(response => {
 			if (!response.ok) return "Failed to fetch! Response was not ok";
 			return response.text();
-		}).then(data => data).catch(error => {
+		}).then(data => {
+			console.debug(data);
+			return data;
+		}).catch(error => {
 			console.error('Error fetching content:', error);
 			return "Error loading content.";
 		}) };
