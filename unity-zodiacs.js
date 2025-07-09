@@ -156,7 +156,7 @@ function createZodiacStatsCalculator(parent) {
 			content.innerHTML = "<input type=\"text\" />";
 			content.firstChild.addEventListener("input", (event) => {
 				data.quality = new Decimal(event.target.value);
-				if (Decimal.lt(data.quality, 0) {
+				if (Decimal.lt(data.quality, 0)) {
 					data.quality = 0;
 					event.target.value = "0";
 				}
