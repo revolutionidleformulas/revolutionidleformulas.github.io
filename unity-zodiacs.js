@@ -151,7 +151,7 @@ function createZodiacStatsCalculator(parent) {
 				const d = document.createElement("td");
 				const e = document.createElement("td");
 				c.style.textAlign = "left";
-				d.innerText = "?";
+				d.innerText = "=";
 				data.statFields[i] = { name: c, value: e };
 
 				b.append(c);
