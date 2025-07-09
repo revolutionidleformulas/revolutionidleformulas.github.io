@@ -10,25 +10,24 @@ function createZodiacStatsCalculator(parent) {
 	const id = "calculator-zodiac-stats";
 	parent.classList.add(id);
 
-	var data = { i: { sign: undefined, level: 1, statFields: new Array(4) } };
+	var data = { sign: undefined, level: 1, statFields: new Array(4) };
 	function updateStatsTable() {
-		const statname1 = data.i.statFields[0].name;
-		const statname2 = data.i.statFields[1].name;
-		const statname3 = data.i.statFields[2].name;
-		const statname4 = data.i.statFields[3].name;
+		const statname1 = data.statFields[0].name;
+		const statname2 = data.statFields[1].name;
+		const statname3 = data.statFields[2].name;
+		const statname4 = data.statFields[3].name;
 		statname1.innerText = statname2.innerText = statname3.innerText = statname4.innerText = '???';
 
-		const statvalue1 = data.i.statFields[0].value;
-		const statvalue2 = data.i.statFields[1].value;
-		const statvalue3 = data.i.statFields[2].value;
-		const statvalue4 = data.i.statFields[3].value;
+		const statvalue1 = data.statFields[0].value;
+		const statvalue2 = data.statFields[1].value;
+		const statvalue3 = data.statFields[2].value;
+		const statvalue4 = data.statFields[3].value;
 		statvalue1.innerText = statvalue2.innerText = statvalue3.innerText = statvalue4.innerText = '???';
 
-		var statNames = consts.zodiacStats.get(data.i.sign);
-		if (typeof statNames === undefined) return;
+		if (sign === undefined) return;
+		var statNames = consts.zodiacStats.get(data.sign);
+		if (statNames === undefined) return;
 
-		console.debug(data);
-		console.debug(statNames);
 		statname1.innerText = statNames[0];
 		statname2.innerText = statNames[1];
 		statname3.innerText = statNames[2];
@@ -82,8 +81,7 @@ function createZodiacStatsCalculator(parent) {
 			}
 			content.innerHTML = html + "</select>";
 			content.firstChild.addEventListener("input", (event) => {
-				console.debug(event);
-				data.i.sign = event.data;
+				data.sign = event.data;
 				updateStatsTable();
 			});
 			body.append(content);
@@ -100,7 +98,7 @@ function createZodiacStatsCalculator(parent) {
 			const content = document.createElement("td");
 			content.innerHTML = "<input type=\"number\" min=1 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				data.i.level = event.data;
+				data.level = event.target.value;
 				updateStatsTable();
 			});
 			body.append(content);
@@ -154,7 +152,7 @@ function createZodiacStatsCalculator(parent) {
 				const e = document.createElement("td");
 				c.style.textAlign = "left";
 				d.innerText = "=";
-				data.i.statFields[i] = { name: c, value: e };
+				data.statFields[i] = { name: c, value: e };
 
 				b.append(c);
 				b.append(d);
