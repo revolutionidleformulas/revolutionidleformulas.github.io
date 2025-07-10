@@ -78,7 +78,7 @@ p {
 	
 	.dropdown {
 		position: fixed;
-		background-color: var(--navbar-background-dropdown);
+		background-color: var(--navbar-background-color-dropdown);
 		z-index: 3;
 		margin: 0;
 		
@@ -116,7 +116,7 @@ p {
 		}
 		.dropdown-option:hover {
 			transition: ease-out 0.1s;
-			background-color: var(--navbar-background-dropdown-chosen);
+			background-color: var(--navbar-background-color-dropdown-chosen);
 		}
 	}
 	ul:hover .dropdown {
