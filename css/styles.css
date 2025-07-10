@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+:root {
+	--background-color: #262626;
+	--navbar-background-color: #454648;
+	--navbar-background-color-dropdown: #454648;
+	--navbar-background-color-tab-chosen: #6f6f6f;
+	--navbar-background-color-dropdown-chosen: #6f6f6f;
+}
+
 body {
-	background-color: #262626;
+	background-color: var(--background-color);
 	margin: 0;
 	width: 4em;
 	height: 100vh;
@@ -39,7 +47,7 @@ p {
 
 .tabs {
 	position: fixed;
-	background-color: #454648;
+	background-color: var(--navbar-background-color);
 	left: 0;
 	top: 0;
 
@@ -61,16 +69,16 @@ p {
 		margin: 0;
 	}
 	ul.chosen {
-		background-color: #6f6f6f;
+		background-color: var(--navbar-background-color-tab-chosen);
 	}
 	ul:hover {
 		transition: ease-out 0.1s;
-		background-color: #6f6f6f;
+		background-color: var(--navbar-background-color-tab-chosen);
 	}
 	
 	.dropdown {
 		position: fixed;
-		background-color: #454648;
+		background-color: var(--navbar-background-dropdown);
 		z-index: 3;
 		margin: 0;
 		
@@ -108,7 +116,7 @@ p {
 		}
 		.dropdown-option:hover {
 			transition: ease-out 0.1s;
-			background-color: #6f6f6f;
+			background-color: var(--navbar-background-dropdown-chosen);
 		}
 	}
 	ul:hover .dropdown {
