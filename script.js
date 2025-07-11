@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					dropdownOption.append(dropdownText);
 
 					dropdownOption.addEventListener("click", function() {
-						clickTab(tabs, const.tabs[i].dropdowns[j].inner);
+						clickTab(tabs, consts.tabs[i].dropdowns[j].inner);
 					});
 
 					dropdown.append(dropdownOption);
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 				if (dropdownCount == 1) {
 					icon.addEventListener("click", function() {
-						clickTab(tabs, const.tabs[i].dropdowns[0].inner);
+						clickTab(tabs, consts.tabs[i].dropdowns[0].inner);
 					});
 				}
 
