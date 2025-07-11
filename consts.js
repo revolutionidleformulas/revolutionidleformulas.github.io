@@ -157,8 +157,12 @@ let consts;
 	function createDropdown(iconPath, name, contentFile) {
 		let dropdown = { icon: iconPath, name: name, contents: "Loading..." };
 		try {
-			fetch(contentFile).then(response => {
-				if (!response.ok) return "Failed to fetch! Response was not ok";
+			fetch("text/" + "en_us" + "/" + contentFile).then(response => {
+				if (!response.ok) {
+					dropdown.contents = "Error during fetching";
+					return "Failed to fetch! Response was not ok";
+				}
+
 				response.text().then(text => {
 					dropdown.contents = text.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
 				});

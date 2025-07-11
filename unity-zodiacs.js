@@ -34,19 +34,19 @@ function createZodiacStatsCalculator(parent) {
 		statname3.innerText = statNames[2];
 		statname4.innerText = statNames[3];
 
-		console.debug(data);
-		var score = Decimal.pow(1.125, new Decimal(data.rarity).add(data.rarityPlus)).times(data.quality).times(Decimal.pow(data.level, 2).add(9));
-		if (data.rarity + data.rarityPlus > 8) score = score.times(2);
-		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).dividedBy(10).pow(2.5));
+		var score = Decimal.pow(1.125, new Decimal(data.rarity).add(data.rarityPlus)).times(data.quality).times(Decimal.pow(data.level, Decimal.dTwo).add(9));
+		if (data.rarity + data.rarityPlus > 8) score = score.times(Decimal.dTwo);
+		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).dividedBy(Decimal.dTen).pow(2.5));
+		if (data.isNaN()) score = Decimal.dZero;
 
 		const func0 = consts.zodiacStatsFunction.get(statNames[0]);
 		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
 		const func2 = consts.zodiacStatsFunction.get(statNames[2]);
 		const func3 = consts.zodiacStatsFunction.get(statNames[3]);
-		statvalue1.innerText = func0(score).toPrecision(5);
-		statvalue2.innerText = func1(score).toPrecision(5);
-		statvalue3.innerText = func2(score).toPrecision(5);
-		statvalue4.innerText = func3(score).toPrecision(5);
+		statvalue1.innerText = func0(score).toPrecision(settings.getDigitPrecision());
+		statvalue2.innerText = func1(score).toPrecision(settings.getDigitPrecision());
+		statvalue3.innerText = func2(score).toPrecision(settings.getDigitPrecision());
+		statvalue4.innerText = func3(score).toPrecision(settings.getDigitPrecision());
 	}
 
 	const title = document.createElement("center");
