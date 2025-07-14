@@ -6,6 +6,7 @@
 	--navbar-background-color-dropdown: #454648;
 	--navbar-background-color-tab-chosen: #6f6f6f;
 	--navbar-background-color-dropdown-chosen: #6f6f6f;
+	--notification-background-color: #3f3f8ff0;
 }
 
 body {
@@ -33,13 +34,13 @@ p {
 	padding-left: 4.5em;
 	width: calc(100% - 5em);
 	
-	// make scrollable and hide scrollbar
+	/* make scrollable and hide scrollbar */
 	overflow: hidden;
 	overflow-y: scroll;
 	scrollbar-width: none;
 	-ms-overflow-style: none;
 	
-	// support for old browsers
+	/* support for old browsers */
 	::-webkit-scrollbar {
 		display: none;
 	}
@@ -55,7 +56,6 @@ p {
 	height: 100%;
 	z-index: 2;
 
-	// make scrollable and hide scrollbar
 	overflow: hidden;
 	overflow-y: scroll;
 	scrollbar-width: none;
@@ -124,7 +124,6 @@ p {
 	}
 
 	ul > * {
-		user-drag: none;
 		-webkit-user-drag: none;
 		user-select: none;
 		-moz-user-select: none;
@@ -142,10 +141,50 @@ p {
 		transform: translate(-50%, -50%);
 	}
 
-	// support for old browsers
+	/* support for old browsers */
 	::-webkit-scrollbar {
 		display: none;
 	}
+}
+
+.notifications {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	right: 1em;
+	bottom: 1em;
+	z-index: 5;
+}
+.notification {
+	position: relative;
+	display: table;
+	width: 15em; max-width: 15em;
+	height: 5em;
+	background-color: var(--notification-background-color);
+	border-radius: 2em;
+	margin-top: 1em;
+
+	* {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		font-size: 120%;
+		
+		-webkit-user-drag: none;
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+}
+
+.copy-latex-formula-buttons > img {
+	width: 1.2em;
+	height: 1.2em;
+	padding-top: 0.1em;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+	padding-bottom: 0.1em;
 }
 
 .calculator-zodiac-stats {

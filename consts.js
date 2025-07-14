@@ -4,7 +4,7 @@ let consts;
 	consts = {
 		zodiacSigns: [ "aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces" ],
 		zodiacRarities: [ "garbage", "common", "uncommon", "rare", "epic", "legendary", "mythic", "godly", "divine", "immortal" ],
-		zodiacStats: new Map([
+		zodiacStatsBySign: new Map([
 			["aries", ["multsgain", "prompower", "ascensionpower", "commonexponent"]],
 			["taurus", ["ipgain", "infinitygain", "genexponent", "multperboughtgen"]],
 			["gemini", ["eternitygain", "epgain", "supernovareq", "labmultpower"]],
@@ -18,94 +18,143 @@ let consts;
 			["aquarius", ["dpgain", "freelablevels", "supernovareq", "labmultpower"]],
 			["pisces", ["luckadd", "zodiacqualitymult", "ach29reward", "gamespeed"]]
 		]),
-		zodiacStatsFunction: new Map([
-			["multsgain", function(zodiacScore) {
-				let value = Decimal.pow(1.35, zodiacScore);
-				if (value.e > 1000) value = value.dividedBy(Decimal.pow(10, 1000)).pow(0.1).times(Decimal.pow(10, 1000));
-				if (value.e > 10000) value = value.dividedBy(Decimal.pow(10, 10000)).pow(0.01).times(Decimal.pow(10, 10000));
-				if (value.e > 100000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
-				if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.01).times(5000000));
-				return value;
+		zodiacStats: new Map([
+			["multsgain", {
+				calculate: function(zodiacScore) {
+					let value = Decimal.pow(1.35, zodiacScore);
+					if (value.e > 1000) value = value.dividedBy(Decimal.pow(10, 1000)).pow(0.1).times(Decimal.pow(10, 1000));
+					if (value.e > 10000) value = value.dividedBy(Decimal.pow(10, 10000)).pow(0.01).times(Decimal.pow(10, 10000));
+					if (value.e > 100000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
+					if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.01).times(5000000));
+					return value;
+				}
 			}],
-			["prompower", function(zodiacScore) {
-				let value = Decimal.pow(1.2, Decimal.log10(zodiacScore));
-				if (value.gt(2)) value = value.dividedBy(2).pow(0.3).times(2);
-				return value;
+			["prompower", {
+				calculate: function(zodiacScore) {
+					let value = Decimal.pow(1.2, Decimal.log10(zodiacScore));
+					if (value.gt(2)) value = value.dividedBy(2).pow(0.3).times(2);
+					return value;
+				}
 			}],
-			["commonexponent", function(zodiacScore) {
-				let value = Decimal.log10(zodiacScore).multiply(0.016).add(1);
-				if (value.gt(1.2)) value = value.dividedBy(1.2).pow(0.115).times(1.2);
-				return value;
+			["commonexponent", {
+				calculate: function(zodiacScore) {
+					let value = Decimal.log10(zodiacScore).multiply(0.016).add(1);
+					if (value.gt(1.2)) value = value.dividedBy(1.2).pow(0.115).times(1.2);
+					return value;
+				}
 			}],
-			["ascensionpower", function(zodiacScore) {
-				let value = Decimal.pow(1.5, Decimal.log10(zodiacScore));
-				if (value.gt(5)) value = value.dividedBy(5).pow(0.25).times(5);
-				return value;
+			["ascensionpower", {
+				calculate: function(zodiacScore) {
+					let value = Decimal.pow(1.5, Decimal.log10(zodiacScore));
+					if (value.gt(5)) value = value.dividedBy(5).pow(0.25).times(5);
+					return value;
+				}
 			}],
-			["slowdownpower", function(zodiacScore) {
-				return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(1.5).round();
+			["slowdownpower", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(1.5).round();
+				}
 			}],
-			["ipgain", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.025).add(1);
+			["ipgain", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.025).add(1);
+				}
 			}],
-			["infinitygain", function(zodiacScore) {
-				return Decimal.pow(3, Decimal.log10(zodiacScore));
+			["infinitygain", {
+				calculate: function(zodiacScore) {
+					return Decimal.pow(3, Decimal.log10(zodiacScore));
+				}
 			}],
-			["genexponent", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.024).add(1);
+			["genexponent", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.024).add(1);
+				}
 			}],
-			["multperboughtgen", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.007).add(1);
+			["multperboughtgen", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.007).add(1);
+				}
 			}],
-			["starbase", function(zodiacScore) {
-				return Decimal.pow(1.8, Decimal.log10(zodiacScore));
+			["starbase", {
+				calculate: function(zodiacScore) {
+					return Decimal.pow(1.8, Decimal.log10(zodiacScore));
+				}
 			}],
-			["stardustexponent", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.02).add(1);
+			["stardustexponent", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.02).add(1);
+				}
 			}],
-			["eternitygain", function(zodiacScore) {
-				return Decimal.pow(2, Decimal.log10(zodiacScore));
+			["eternitygain", {
+				calculate: function(zodiacScore) {
+					return Decimal.pow(2, Decimal.log10(zodiacScore));
+				}
 			}],
-			["epgain", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.011).add(1);
+			["epgain", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.011).add(1);
+				}
 			}],
-			["labmultpower", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.012).add(1);
+			["labmultpower", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.012).add(1);
+				}
 			}],
-			["supernovareq", function(zodiacScore) {
-				return Decimal.divide(1, Decimal.log10(zodiacScore).times(0.02).add(1));
+			["supernovareq", {
+				calculate: function(zodiacScore) {
+					var value = Decimal.divide(1, Decimal.log10(zodiacScore).times(0.02).add(1));
+					return value;
+				}
 			}],
-			["dpgain", function(zodiacScore) {
-				var chance = Decimal.log10(zodiacScore).times(0.05).add(1);
-				if (chance.gt(1.5)) chance = chance.dividedBy(1.5).pow(0.4).times(1.5);
-				return chance;
+			["dpgain", {
+				calculate: function(zodiacScore) {
+					var value = Decimal.log10(zodiacScore).times(0.05).add(1);
+					if (value.gt(1.5)) value = value.dividedBy(1.5).pow(0.4).times(1.5);
+					if (value.gt(1.6)) value = value.dividedBy(1.6).pow(0.15).times(1.6);
+					return value;
+				}
 			}],
-			["freelablevels", function(zodiacScore) {
-				return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(3).times(5).round();
+			["freelablevels", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(new Decimal(9).add(zodiacScore)).pow(3).times(5).round();
+				}
 			}],
-			["dtpcost", function(zodiacScore) {
-				var chance = Decimal.dOne.dividedBy(Decimal.log10(zodiacScore).times(0.015).add(1));
-				if (chance.gt(0.99)) chance = chance.dividedBy(0.99).pow(0.5).times(0.99);
-				return chance;
+			["dtpcost", {
+				calculate: function(zodiacScore) {
+					var value = Decimal.dOne.dividedBy(Decimal.log10(zodiacScore).times(0.015).add(1));
+					if (value.lt(0.99)) value = value.dividedBy(0.99).pow(0.5).times(0.99);
+					if (value.lt(0.9)) value = value.dividedBy(0.9).pow(0.3).times(0.9);
+					return value;
+				}
 			}],
-			["centerdtueff", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.02).add(1);
+			["centerdtueff", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.02).add(1);
+				}
 			}],
-			["ach29reward", function(zodiacScore) {
-				var chance = Decimal.log10(zodiacScore).times(0.005).add(1);
-				if (chance.gt(1.02)) chance = chance.dividedBy(1.02).pow(0.05).times(1.02);
-				return chance;
+			["ach29reward", {
+				calculate: function(zodiacScore) {
+					var value = Decimal.log10(zodiacScore).times(0.005).add(1);
+					if (value.gt(1.02)) value = value.dividedBy(1.02).pow(0.05).times(1.02);
+					return value;
+				}
 			}],
-			["gamespeed", function(zodiacScore) {
-				var chance = Decimal.log10(zodiacScore).times(0.1).add(1);
-				if (chance.gt(2)) chance = chance.dividedBy(2).pow(0.02).times(2);
-				return chance;
+			["gamespeed", {
+				calculate: function(zodiacScore) {
+					var value = Decimal.log10(zodiacScore).times(0.1).add(1);
+					if (value.gt(2)) value = value.dividedBy(2).pow(0.02).times(2);
+					return value;
+				}
 			}],
-			["luckadd", function(zodiacScore) {
-				return Decimal.log10(Decimal.divide(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
+			["luckadd", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(Decimal.divide(zodiacScore, 20).pow(0.45).times(20)).times(0.07);
+				}
 			}],
-			["zodiacqualitymult", function(zodiacScore) {
-				return Decimal.log10(zodiacScore).times(0.04).add(1);
+			["zodiacqualitymult", {
+				calculate: function(zodiacScore) {
+					return Decimal.log10(zodiacScore).times(0.04).add(1);
+				}
 			}]
 		]),
 
@@ -127,16 +176,17 @@ let consts;
 				createDropdown("assets/flask_128.png", "Laboratory", "laboratory.html"),
 				createDropdown("assets/supernova_512.png", "Supernova", "supernova.html"),
 				createDropdown("assets/dilation_go_64.png", "Dilation", "dilation.html"),
-				createDropdown("assets/loaddt.png", "Dilation Tree", "dilation-tree.html")
+				createDropdown("assets/dil_tree_outline_3.png", "Dilation Tree", "dilation-tree.html")
 			]),
 			createTab("assets/unity_64.png", [
+				createDropdown("assets/unity_64.png", "Main", "unity-main.html"),
 				createDropdown("assets/astrology_1_128.png", "Zodiacs", "unity-zodiacs.html"),
-				createDropdown("assets/astrology_2_128.png", "Factors", "factors.html"),
 				createDropdown("assets/shop_planet.png", "Planet Shop", "planet-shop.html"),
 				createDropdown("assets/1.png", "Relics", "relics.html")
 			]),
 			createTab("assets/attacks_64.png", [
-				createDropdown("assets/gold_64.png", "Attacks", "attacks.html")
+				createDropdown("assets/attacks_64.png", "Main", "attacks-main.html"),
+				createDropdown("assets/attacks_prestige.png", "Attacks Prestige", "attacks-prestige.html")
 			]),
 			createTab("assets/achievements_64.png", [
 				createDropdown("assets/achievements_64.png", "Achievements", "achievements.html")

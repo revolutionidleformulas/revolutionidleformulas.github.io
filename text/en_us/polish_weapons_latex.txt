@@ -1,0 +1,83 @@
+TODO: redo like all of them
+
+\text{Sword Effect} = \left\{ \begin{array}{cl}
+  x & = 10^{(\text{Level} \times \text{Sword Polish Enchance Effect})^{0.9}} \\
+  x & = \left\{ \begin{array} & \ \text{Has Knuckles Milestone 1} & : x^{1.2} \ , & x \ \end{array} \right\} \\
+  x & = \left\{ \begin{array} & \ \text{Has Refine Tree Node 4} & : x^\text{Refine Tree Node 4 Effect} \ , & x \ \end{array} \right\}
+\end{array} \right.
+
+\begin{array}{cl} & \text{Sword Cost} = x_6 ,\ \text{where}: \\
+& {\left\{ \begin{array}{cl}
+  & \text{Default} & : \ x_0 & = \ 1.1^\text{Current Level} \\
+  & \text{if} \ \text{Current Level} > 10 & : \ x_1 & = \ x_0^{1 + \frac{\text{Current Level} - 10}{100}} \ , & \text{else} \ x_1 & = \ x_0 \\
+  & \text{if} \ \text{Current Level} > 20 & : \ x_2 & = \ x_1^{1 + \frac{\text{Current Level} - 25}{70}} \ , & \text{else} \ x_2 & = \ x_1 \\
+  & \text{if} \ \text{Current Level} > 50 & : \ x_3 & = \ x_2^{1 + \frac{\text{Current Level} - 50}{40}} \ , & \text{else} \ x_3 & = \ x_2 \\
+  & \text{if} \ \text{Current Level} > 100 & : \ x_4 & = \ x_3^{1 + \frac{\text{Current Level} - 100}{10}} \ , & \text{else} \ x_4 & = \ x_3 \\
+  & \text{if} \ \text{Current Level} > 250 & : \ x_5 & = \ x_4^{1 + \frac{\text{Current Level} - 250}{3}} \ , & \text{else} \ x_5 & = \ x_4 \\
+  & \text{if} \ \text{Current Level} > 1000 & : \ x_6 & = \ x_5^{1.01^{\text{Current Level} - 100}} \ , & \text{else} \ x_6 & = \ x_5 \\
+\end{array} \right.} \end{array}
+
+
+\text{Axe Effect} = \left\{ \begin{array}{cl}
+  x & = 1 + 0.05 \times \text{Level} \times \text{Axe Polish Enchance Effect} \\
+  x & = \left\{ \begin{array} & \ \text{Has Refine Tree Node 9} & : x \times \text{Refine Tree Node 9 Effect} \ , & x \ \end{array} \right\}
+\end{array} \right.
+
+\begin{array}{cl} & \text{Axe Cost} = x_6 ,\ \text{where}: \\
+& {\left\{ \begin{array}{cl}
+  & \text{Default} & : \ x_0 & = \ 2 \times 1.15^\text{Current Level} \\
+  & \text{if} \ \text{Current Level} > 10 & : \ x_1 & = \ x_0^{1 + \frac{\text{Current Level} - 10}{100}} \ , & \text{else} \ x_1 & = \ x_0 \\
+  & \text{if} \ \text{Current Level} > 20 & : \ x_2 & = \ x_1^{1 + \frac{\text{Current Level} - 25}{70}} \ , & \text{else} \ x_2 & = \ x_1 \\
+  & \text{if} \ \text{Current Level} > 50 & : \ x_3 & = \ x_2^{1 + \frac{\text{Current Level} - 50}{40}} \ , & \text{else} \ x_3 & = \ x_2 \\
+  & \text{if} \ \text{Current Level} > 100 & : \ x_4 & = \ x_3^{1 + \frac{\text{Current Level} - 100}{10}} \ , & \text{else} \ x_4 & = \ x_3 \\
+  & \text{if} \ \text{Current Level} > 250 & : \ x_5 & = \ x_4^{1 + \frac{\text{Current Level} - 250}{3}} \ , & \text{else} \ x_5 & = \ x_4 \\
+  & \text{if} \ \text{Current Level} > 1000 & : \ x_6 & = \ x_5^{1.01^{\text{Current Level} - 100}} \ , & \text{else} \ x_6 & = \ x_5 \\
+\end{array} \right.} \end{array}
+
+
+\text{Spear Effect} = 3^{(\text{Level} \times \text{Spear Polish Enchance Effect})^{0.95}}
+
+\begin{array}{cl} & \text{Spear Cost} = x_6 ,\ \text{where}: \\
+& {\left\{ \begin{array}{cl}
+  & \text{Default} & : \ x_0 & = \ 3 \times 1.2^\text{Current Level} \\
+  & \text{if} \ \text{Current Level} > 10 & : \ x_1 & = \ x_0^{1 + \frac{\text{Current Level} - 10}{100}} \ , & \text{else} \ x_1 & = \ x_0 \\
+  & \text{if} \ \text{Current Level} > 20 & : \ x_2 & = \ x_1^{1 + \frac{\text{Current Level} - 25}{70}} \ , & \text{else} \ x_2 & = \ x_1 \\
+  & \text{if} \ \text{Current Level} > 50 & : \ x_3 & = \ x_2^{1 + \frac{\text{Current Level} - 50}{40}} \ , & \text{else} \ x_3 & = \ x_2 \\
+  & \text{if} \ \text{Current Level} > 100 & : \ x_4 & = \ x_3^{1 + \frac{\text{Current Level} - 100}{10}} \ , & \text{else} \ x_4 & = \ x_3 \\
+  & \text{if} \ \text{Current Level} > 250 & : \ x_5 & = \ x_4^{1 + \frac{\text{Current Level} - 250}{3}} \ , & \text{else} \ x_5 & = \ x_4 \\
+  & \text{if} \ \text{Current Level} > 1000 & : \ x_6 & = \ x_5^{1.01^{\text{Current Level} - 100}} \ , & \text{else} \ x_6 & = \ x_5 \\
+\end{array} \right.} \end{array}
+
+
+\text{Bow Effect} = 1.4^{(\text{Level} \times \text{Bow Polish Enchance Effect})^{0.75}}
+
+\begin{array}{cl} & \text{Axe Cost} = x_6 ,\ \text{where}: \\
+& {\left\{ \begin{array}{cl}
+  & \text{Default} & : \ x_0 & = \ 4 \times 1.25^\text{Current Level} \\
+  & \text{if} \ \text{Current Level} > 10 & : \ x_1 & = \ x_0^{1 + \frac{\text{Current Level} - 10}{100}} \ , & \text{else} \ x_1 & = \ x_0 \\
+  & \text{if} \ \text{Current Level} > 20 & : \ x_2 & = \ x_1^{1 + \frac{\text{Current Level} - 25}{70}} \ , & \text{else} \ x_2 & = \ x_1 \\
+  & \text{if} \ \text{Current Level} > 50 & : \ x_3 & = \ x_2^{1 + \frac{\text{Current Level} - 50}{40}} \ , & \text{else} \ x_3 & = \ x_2 \\
+  & \text{if} \ \text{Current Level} > 100 & : \ x_4 & = \ x_3^{1 + \frac{\text{Current Level} - 100}{10}} \ , & \text{else} \ x_4 & = \ x_3 \\
+  & \text{if} \ \text{Current Level} > 250 & : \ x_5 & = \ x_4^{1 + \frac{\text{Current Level} - 250}{3}} \ , & \text{else} \ x_5 & = \ x_4 \\
+  & \text{if} \ \text{Current Level} > 1000 & : \ x_6 & = \ x_5^{1.01^{\text{Current Level} - 100}} \ , & \text{else} \ x_6 & = \ x_5 \\
+\end{array} \right.} \end{array}
+
+
+\text{Knuckles Effect} = \left\{ \begin{array}{cl}
+  x & = \begin{array}{cl}
+    & 0.1 \times (\text{Level} \times \text{Knuckles Polish Enchance Effect})^{0.650514997832} \\
+    & \times \left\{ \begin{array}{cl} \text{Has Refine Node ??} & : \ 1.2 \ , & 1 \end{array} \right\}
+  \end{array} \\
+  x & = \ \left\{ \begin{array} & \ x > 0.3 & : \frac{x}{(x + 0.7) \times 0.3}^{0.6} \times 0.3 \ , & x \ \end{array} \right\}
+\end{array} \right.
+
+\begin{array}{cl} & \text{Knuckles Cost} = x_6 ,\ \text{where}: \\
+& {\left\{ \begin{array}{cl}
+  & \text{Default} & : \ x_0 & = \ 5 \times 1.4^\text{Current Level} \\
+  & \text{if} \ \text{Current Level} > 10 & : \ x_1 & = \ x_0^{1 + \frac{\text{Current Level} - 10}{100}} \ , & \text{else} \ x_1 & = \ x_0 \\
+  & \text{if} \ \text{Current Level} > 20 & : \ x_2 & = \ x_1^{1 + \frac{\text{Current Level} - 25}{70}} \ , & \text{else} \ x_2 & = \ x_1 \\
+  & \text{if} \ \text{Current Level} > 50 & : \ x_3 & = \ x_2^{1 + \frac{\text{Current Level} - 50}{40}} \ , & \text{else} \ x_3 & = \ x_2 \\
+  & \text{if} \ \text{Current Level} > 100 & : \ x_4 & = \ x_3^{1 + \frac{\text{Current Level} - 100}{10}} \ , & \text{else} \ x_4 & = \ x_3 \\
+  & \text{if} \ \text{Current Level} > 250 & : \ x_5 & = \ x_4^{1 + \frac{\text{Current Level} - 250}{3}} \ , & \text{else} \ x_5 & = \ x_4 \\
+  & \text{if} \ \text{Current Level} > 1000 & : \ x_6 & = \ x_5^{1.01^{\text{Current Level} - 100}} \ , & \text{else} \ x_6 & = \ x_5 \\
+\end{array} \right.} \end{array}

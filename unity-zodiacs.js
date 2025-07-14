@@ -1,8 +1,9 @@
 (function() {
 	document.addEventListener("initializePage", function(event) {
 		const calculator = document.getElementById("calculator-zodiac-stats");
-		if (typeof calculator !== undefined && calculator !== null)
+		if (typeof calculator !== undefined && calculator !== null) {
 			createZodiacStatsCalculator(calculator);
+		}
 	});
 })();
 
@@ -10,7 +11,7 @@ function createZodiacStatsCalculator(parent) {
 	const id = "calculator-zodiac-stats";
 	parent.classList.add(id);
 
-	var data = { sign: undefined, level: 1, rarity: 0, rarityPlus: 0, quality: 1, statFields: new Array(4) };
+	var data = { sign: undefined, level: 1, rarity: -1, rarityPlus: 0, quality: 1, statFields: new Array(4) };
 	function updateStatsTable() {
 		const statname1 = data.statFields[0].name;
 		const statname2 = data.statFields[1].name;
@@ -26,7 +27,7 @@ function createZodiacStatsCalculator(parent) {
 
 		if (data.sign === undefined) return;
 
-		var statNames = consts.zodiacStats.get(data.sign);
+		var statNames = consts.zodiacStatsBySign.get(data.sign);
 		if (statNames === undefined) return;
 
 		statname1.innerText = statNames[0];
@@ -34,19 +35,17 @@ function createZodiacStatsCalculator(parent) {
 		statname3.innerText = statNames[2];
 		statname4.innerText = statNames[3];
 
+		if (data.rarity === -1) return;
+		
 		var score = Decimal.pow(1.125, new Decimal(data.rarity).add(data.rarityPlus)).times(data.quality).times(Decimal.pow(data.level, Decimal.dTwo).add(9));
-		if (data.rarity + data.rarityPlus > 8) score = score.times(Decimal.dTwo);
+		if (data.rarity > 8) score = score.times(Decimal.dTwo);
 		if (data.level >= 100) score = score.times(Decimal.minus(data.level, 90).dividedBy(Decimal.dTen).pow(2.5));
-		if (data.isNaN()) score = Decimal.dZero;
+		if (Decimal.isNaN(score) || score.lt(Decimal.dOne)) score = Decimal.dOne;
 
-		const func0 = consts.zodiacStatsFunction.get(statNames[0]);
-		const func1 = consts.zodiacStatsFunction.get(statNames[1]);
-		const func2 = consts.zodiacStatsFunction.get(statNames[2]);
-		const func3 = consts.zodiacStatsFunction.get(statNames[3]);
-		statvalue1.innerText = func0(score).toPrecision(settings.getDigitPrecision());
-		statvalue2.innerText = func1(score).toPrecision(settings.getDigitPrecision());
-		statvalue3.innerText = func2(score).toPrecision(settings.getDigitPrecision());
-		statvalue4.innerText = func3(score).toPrecision(settings.getDigitPrecision());
+		statvalue1.innerText = consts.zodiacStats.get(statNames[0]).calculate(score).toPrecision(settings.getDigitPrecision());
+		statvalue2.innerText = consts.zodiacStats.get(statNames[1]).calculate(score).toPrecision(settings.getDigitPrecision());
+		statvalue3.innerText = consts.zodiacStats.get(statNames[2]).calculate(score).toPrecision(settings.getDigitPrecision());
+		statvalue4.innerText = consts.zodiacStats.get(statNames[3]).calculate(score).toPrecision(settings.getDigitPrecision());
 	}
 
 	const title = document.createElement("center");
@@ -54,12 +53,13 @@ function createZodiacStatsCalculator(parent) {
 	title.innerText = "Stats Calculator";
 	parent.append(title);
 
+	const visualCenter = document.createElement("center");
+	parent.append(visualCenter);
 	const visual = document.createElement("div");
-	visual.style.float = "left";
 	visual.style.position = "relative";
 	visual.style.width = "10em";
 	visual.style.height = "10em";
-	parent.append(visual);
+	visualCenter.append(visual);
 	{
 		const background = document.createElement("img");
 		background.style.position = "relative";
@@ -71,8 +71,7 @@ function createZodiacStatsCalculator(parent) {
 		zodiacSlot.style.position = "relative";
 		zodiacSlot.style.width = "40%";
 		zodiacSlot.style.top = "-50%";
-		zodiacSlot.style.left = "50%";
-		zodiacSlot.style.transform = "translate(-50%, -50%)";
+		zodiacSlot.style.transform = "translate(0%, -50%)";
 		zodiacSlot.src = "assets/zodiac_slot.png";
 		visual.append(zodiacSlot);
 	}
@@ -132,9 +131,9 @@ function createZodiacStatsCalculator(parent) {
 			for (let i = 0; i < consts.zodiacRarities.length; i++) {
 				html += "<option value=\"" + consts.zodiacRarities[i] + "\">" + consts.zodiacRarities[i] + "</option>";
 			}
-			content.innerHTML = html + "</select>+<input type=\"number\" min=0 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
+			content.innerHTML = html + "</select><br/>+<input type=\"number\" min=0 step=1 oninput=\"validity.valid||(value=Math.round(value))\" />";
 			content.firstChild.addEventListener("input", (event) => {
-				data.rarity = 0;
+				data.rarity = consts.zodiacRarities.indexOf(event.target.value);
 				updateStatsTable();
 			});
 			content.lastChild.addEventListener("input", (event) => {

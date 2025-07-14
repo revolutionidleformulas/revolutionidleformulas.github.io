@@ -1,19 +1,93 @@
+class InitializePageEvent extends Event {
+	constructor(page, raw) {
+		super("initializePage");
+		this.page = page;
+		this.raw = raw;
+	}
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
-	const calculator = document.getElementById("content");
-	if (typeof calculator !== undefined && calculator !== null)
-		document.dispatchEvent(new Event("initializePage", { page: content }));
+	const content = document.getElementById("content");
+	if (typeof content !== undefined && content !== null) {
+		document.dispatchEvent(new InitializePageEvent(content, content.cloneNode(true)));
+	}
+});
+
+document.addEventListener("initializePage", function(event) {
+	const copyButtons = document.getElementsByClassName("copy-latex-formula-buttons");
+	for (let i = 0; i < copyButtons.length; i++) {
+		const copyButton = copyButtons[i];
+		const katex = event.raw.querySelector(`[id="${copyButton.getAttribute("data-target")}"]`).innerText;
+		let latex = katex.trim();
+		let inline;
+		switch (latex[0]) {
+			case '\\':
+				if (latex[1] == '(') {
+					latex = latex.slice(2, latex.length - 2).trim();
+					inline = true;
+					break;
+				}
+				else if (latex[1] == '[') {
+					latex = latex.slice(2, latex.length - 2).trim();
+					inline = false;
+					break;
+				}
+				else {
+					console.error(`Unexpected second character during 'copy-buttons' phase! Got: ${latex[1]}, expected: '(' or '['`);
+					continue;
+				}
+			case '$':
+				if (latex[1] == '$') {
+					latex = latex.slice(2, latex.length - 2).trim();
+					inline = true;
+				}
+				else {
+					latex = latex.slice(1, latex.length - 1).trim();
+					inline = false;
+				}
+				break;
+			default:
+				console.error(`Unexpected first character during 'copy-buttons' phase! Got: ${latex[0]}, expected: '\\' or '$'`);
+				continue;
+		}
+
+		const buttons = [document.createElement("img"), document.createElement("img") ];
+		buttons[0].src = "assets/copy_latex.png";
+		buttons[0].onclick = function(event) {
+			navigator.clipboard.writeText(inline
+				? `\\begin{math} ${latex} \\end{math}`
+				: `\\begin{equation} ${latex} \\end{equation}`
+			).then(_ => {
+				addNotification("Copied to the clipboard!");
+			}, reason => {
+				addNotification("Failed to copy to the clipboard!");
+				console.error(reason);
+			});
+		};
+		buttons[1].src = "assets/copy_mediawiki.png";
+		buttons[1].onclick = function(event) {
+			navigator.clipboard.writeText(inline
+				? `<math display="inline">${latex}</math>`
+				: `<math display="block">${latex}</math>`
+			).then(_ => {
+				addNotification("Copied to the clipboard!");
+			}, reason => {
+				addNotification("Failed to copy to the clipboard!");
+				console.error(reason);
+			});
+		};
+
+		copyButton.append(buttons[0]);
+		copyButton.append(buttons[1]);
+	}
 });
 
 (function() {
 	let clickedOnDropdown = false;
 	let currentTab;
 
-	
 	window.onload = function() {
-		document.body.append(createContentElement());
-		document.body.prepend(createTabsElement());
-
-		function createTabsElement() {
+		document.body.prepend((function() {
 			const tabs = document.createElement("nav");
 			tabs.classList.add("tabs");
 			for (let i = 0; i < consts.tabs.length; i++) {
@@ -69,16 +143,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 			};
 			return tabs;
-		}
-
-		function createContentElement() {
-			const content = document.createElement("div");
-			content.classList.add("content");
-			content.id = "content";
-			content.innerHTML = document.body.innerHTML;
-			document.body.innerHTML = '';
-			return content;
-		}
+		})());
 
 		function clickTab(tab, dropdown) {
 			if (clickedOnDropdown) return;
@@ -86,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 			const content = document.getElementById("content");
 			content.innerHTML = dropdown.contents;
-			document.dispatchEvent(new Event("initializePage", { page: content }));
+			document.dispatchEvent(new InitializePageEvent(content, content.cloneNode(true)));
 
 			if (typeof currentTab !== 'undefined') currentTab.classList.remove('chosen');
 			currentTab = tab
@@ -105,4 +170,53 @@ function isMobile() {
 	else {
 		return false;
 	}
+}
+
+function addNotification(text) {
+	const notifications = document.getElementById("notifications");
+	const notification = document.createElement("div");
+	notification.classList.add("notification");
+	{
+		const contents = document.createElement("div");
+		contents.innerText = text;
+		notification.append(contents);
+	}
+
+	notifications.append(notification);
+	for (let i = 0; i < notifications.childNodes.length - 1; i++) {
+		const child = notifications.childNodes[i];
+		child.animate([
+			{ transform: "translateY(" + child.getBoundingClientRect().height + "px)" },
+			{ transform: "translateY(0)" }
+		], {
+			duration: 2000,
+			iterations: 1,
+			easing: "cubic-bezier(0, 0.99, 0, 1)"
+		});
+	}
+
+	const animation = notification.animate([
+		{ transform: "translateY(20em)" },
+		{ transform: "translateY(0)" }
+	], {
+		duration: 2000,
+		iterations: 1,
+		easing: "cubic-bezier(0, 0.99, 0, 1)"
+	});
+	animation.play();
+	animation.onfinish = () => {
+		const animation = notification.animate([
+			{ transform: "translateX(0)" },
+			{ transform: "translateX(20em)" }
+		], {
+			duration: 3000,
+			delay: 8000,
+			iterations: 1,
+			easing: "cubic-bezier(0, 0.99, 0, 1)"
+		});
+		animation.play();
+		animation.onfinish = () => {
+			notifications.removeChild(notification);
+		};
+	};
 }

@@ -1,111 +1,221 @@
 <center><h1>Zodiacs</h1></center>
 
+<h2>General</h2><hr/>
+
+<p>Most zodiac variables rely on zodiacs score, which is the culmination of zodiacs level, rarity and quality. Score is calculated using the following formula:</p>
+
+<center>where \( L \) is level, \( Q \) is quality, \( R \) is rarity and \( R_+ \) is the number after rarity (or \( 0 \) for the lack of it).</center>
+<span id="zodiac-score-formula">\[
+\text{Zodiac Score} = (9 + L^2) * Q * 1.125^{R + R_+} \times \begin{cases}
+  R \leq 8 & : \ 1 \\
+  8 < R    & : \ 2
+\end{cases} \times \begin{cases}
+  L < 100    & : \ 1 \\
+  L \geq 100 & : \ (\frac{L - 90}{10})^{2.5}
+\end{cases}
+\]</span>
+<center><div class="copy-latex-formula-buttons" data-target="zodiac-score-formula"></div></center><br/>
+
+For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (\( 9 \)). Immortal+X are fairly straightforward: \( R_+ = X \).<br/>
+
 <h2>Stats</h2><hr/>
 
 <div id="calculator-zodiac-stats"></div>
 
-<p>To put it simply, zodiac stats are culmination of zodiacs level, rarity and quality, aka "score". Score is calculated using the following formula:</p><br/>
-\( \text{Score} = 1.125^R \times Q \times (9 + L^2) \times \left\{ \begin{array}{cl} 8 < R & : \ 2 \\ R \leq 8 & : \ 1 \end{array} \right. \times \left\{ \begin{array}{cl} L \geq 100 & : \ (\frac{L - 90}{10})^{2.5} \\ L < 100 & : \ 1 \end{array} \right. \)
-<br/>
-<center>where \( R \) is rarity, \( Q \) is quality and \( L \) is level.</center><br/>
-For \( R \), "garbage" means \( 0 \), "common" - \( 1 \), etc., up to immortal (\( 9 \)). Immortal+X are fairly straightforward: \( R = 9 + X \).<br/>
-
 <p>Each zodiac stat uses zodiac score (shortened to \( \text{ZS} \) here) as part of their formulas:</p>
 <table>
 	<tbody>
-		<th>Mults Gain</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 7672.61 & : \ 1.35^\text{ZS} \\ 7672.61 \lessapprox \text{ZS} \lessapprox 698207.39 & : \ 10^{900} \times 1.35^{0.1 \times \text{ZS}} \\ 698207.39 \lessapprox \text{ZS} \lessapprox 7.6 \times 10^9 & : \ 10^{9009} \times 1.35^{0.001 \times \text{ZS}} \\ 7.6 \times 10^9 \lessapprox \text{ZS} \lessapprox 4.22 \times 10^{5.32 \times 10^9}  & : \ 10^{10^6 \times (9.009 \times 10^{-6} \times \lg(1.35) \times \lg{\text{ZS}})^{0.25}} \\ 10^{5.32 \times 10^9} \lessapprox \text{ZS} & : \ 10^{5 \times 10^6 \times (\frac{(9.009 \times 10^{-6} \times \lg(1.35) \times \lg{\text{ZS}})^{0.25}}{5})^{0.01}} \\ \end{array} \right. \)</td>
+		<th>Mults Gain<br/><div class="copy-latex-formula-buttons" data-target="mults-gain-formula"></div></th>
+		<td><span id="mults-gain-formula">
+\( \begin{aligned}
+x_4 \text{, where} \begin{cases}
+	\text{Default}:                       & x_0 = 1.35^\text{ZS}                                                                                      \\
+	\text{if} \ x_0 > 10^{10^3}:          & x_1 = 10^{10^3} \times (\frac{x_0}{10^{10^3}})^{0.1} ,                      & \text{else} : \ x_1 = \ x_0 \\
+	\text{if} \ x_1 > 10^{10^5}:          & x_2 = 10^{10^5} \times (\frac{x_1}{10^{10^5}})^{0.01} ,                     & \text{else} : \ x_2 = \ x_1 \\
+	\text{if} \ x_2 > 10^{10^6}:          & x_3 = 10^{(10^6 \times (\frac{\lg{x_2}}{10^6})^{0.25})} ,                   & \text{else} : \ x_3 = \ x_2 \\
+	\text{if} \ x_3 > 10^{5 \times 10^6}: & x_4 = 10^{(5 \times 10^6 \times (\frac{\lg{x_3}}{5 \times 10^6})^{0.01})} , & \text{else} : \ x_4 = \ x_3 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Promotion Power</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 6335.55 & : \ 1.2^{\lg{\text{ZS}}} \\ 6335.55 \lessapprox \text{ZS} & : \ 2 \times (\frac{1.2^{\lg{\text{ZS}}}}{2})^{0.3} \\ \end{array} \right. \)</td>
+		<th>Promotion Power<br/><div class="copy-latex-formula-buttons" data-target="promotion-power-formula"></div></th>
+		<td><span id="promotion-power-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:      & x_0 = 1.2^{\lg{\text{ZS}}}                                          \\
+	\text{if} \ x_0 > 2: & x_1 = 2 \times (\frac{x_0}{2})^{0.3}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Common Exponent</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 3.16 \times 10^{12} & : \ 1 + 0.016 \times \lg{\text{ZS}} \\ 3.16 \times 10^{12} \lessapprox \text{ZS} & : \ 1.2 \times (\frac{1 + 0.016 \times \lg{\text{ZS}}}{1.2})^{0.115} \\ \end{array} \right. \)</td>
+		<th>Common Exponent<br/><div class="copy-latex-formula-buttons" data-target="common-exponent-formula"></div></th>
+		<td><span id="common-exponent-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:        & x_0 = 1 + 0.016 \times \lg{\text{ZS}}                                     \\
+	\text{if} \ x_0 > 1.2: & x_1 = 1.2 \times (\frac{x_0}{1.2})^{0.115}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Ascension Power</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 9318.85 & : \ 1.5^{\lg{\text{ZS}}} \\ 9318.85 \lessapprox \text{ZS} & : \ 5 \times (\frac{1.5^{\lg{\text{ZS}}}}{5})^{0.25} \end{array} \right. \)</td>
+		<th>Ascension Power<br/><div class="copy-latex-formula-buttons" data-target="ascension-power-formula"></div></th>
+		<td><span id="ascension-power-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:      & x_0 = 1.5^{\lg{\text{ZS}}}                                           \\
+	\text{if} \ x_0 > 5: & x_1 = 5 \times (\frac{x_0}{5})^{0.25}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Laps Speed</th>
-		<td>\( 2^{\lg{\text{ZS}}} \)</td>
+		<th>Laps Speed<br/><div class="copy-latex-formula-buttons" data-target="laps-speed-formula"></div></th>
+		<td><span id="laps-speed-formula">
+\( 2^{\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Slowdown Power</th>
-		<td>\( \left[ (\lg(\text{ZS} + 9))^{1.5} \right] \)</td>
+		<th>Slowdown Power<br/><div class="copy-latex-formula-buttons" data-target="slowdown-power-formula"></div></th>
+		<td><span id="slowdown-power-formula">
+\( \left[ (\lg(\text{ZS} + 9))^{1.5} \right] \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>IP Gain</th>
-		<td>\( 1 + 0.025 \times {\lg{\text{ZS}}} \)</td>
+		<th>IP Gain<br/><div class="copy-latex-formula-buttons" data-target="ip-gain-formula"></div></th>
+		<td><span id="ip-gain-formula">
+\( 1 + 0.025 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Infinity Gain</th>
-		<td>\( 3^{\lg{\text{ZS}}} \)</td>
+		<th>Infinity Gain<br/><div class="copy-latex-formula-buttons" data-target="infinity-gain-formula"></div></th>
+		<td><span id="infinity-gain-formula">
+\( 3^{\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Generator Exponent</th>
-		<td>\( 1 + 0.024 \times {\lg{\text{ZS}}} \)</td>
+		<th>Generator Exponent<br/><div class="copy-latex-formula-buttons" data-target="generator-exponent-formula"></div></th>
+		<td><span id="generator-exponent-formula">
+\( 1 + 0.024 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Mult Per Bought Gen</th>
-		<td>\( 1 + 0.007 \times {\lg{\text{ZS}}} \)</td>
+		<th>Mult Per Bought Gen<br/><div class="copy-latex-formula-buttons" data-target="mult-per-bought-gen-formula"></div></th>
+		<td><span id="mult-per-bought-gen-formula">
+\( 1 + 0.007 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Star Base</th>
-		<td>\( 1.8^{\lg{\text{ZS}}} \)</td>
+		<th>Star Base<br/><div class="copy-latex-formula-buttons" data-target="star-base-formula"></div></th>
+		<td><span id="star-base-formula">
+\( 1.8^{\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Stardust Exponent</th>
-		<td>\( 1 + 0.02 \times {\lg{\text{ZS}}} \)</td>
+		<th>Stardust Exponent<br/><div class="copy-latex-formula-buttons" data-target="stardust-exponent-formula"></div></th>
+		<td><span id="stardust-exponent-formula">
+\( 1 + 0.02 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Eternity Gain</th>
-		<td>\( 2^{\lg{\text{ZS}}} \)</td>
+		<th>Eternity Gain<br/><div class="copy-latex-formula-buttons" data-target="eternity-gain-formula"></div></th>
+		<td><span id="eternity-gain-formula">
+\( 2^{\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>EP Gain</th>
-		<td>\( 1 + 0.011 \times {\lg{\text{ZS}}} \)</td>
+		<th>EP Gain<br/><div class="copy-latex-formula-buttons" data-target="ep-gain-formula"></div></th>
+		<td><span id="ep-gain-formula">
+\( 1 + 0.011 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Lab Mult Power</th>
-		<td>\( 1 + 0.012 \times {\lg{\text{ZS}}} \)</td>
+		<th>Lab Mult Power<br/><div class="copy-latex-formula-buttons" data-target="lab-mult-power-formula"></div></th>
+		<td><span id="lab-mult-power-formula">
+\( 1 + 0.012 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Supernova Req</th>
-		<td>\( \frac{1}{1 + 0.02 \times {\lg{\text{ZS}}}} \)</td>
+		<th>Supernova Req<br/><div class="copy-latex-formula-buttons" data-target="supernova-req-formula"></div></th>
+		<td><span id="supernova-req-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:        & x_0 = \frac{1}{1 + 0.02 * \lg{\text{ZS}}}                               \\
+	\text{if} \ x_0 < 0.8: & x_1 = 0.8 \times (\frac{x_0}{0.8})^{0.1}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>DP Gain</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 10^{10} & : \ 1 + 0.05 \times \lg{\text{ZS}} \\ 10^{10} \lessapprox \text{ZS} & : \ 1.5 \times (\frac{1 + 0.05 \times \lg{\text{ZS}}}{1.5})^{0.4} \\ \end{array} \right. \)</td>
+		<th>DP Gain<br/><div class="copy-latex-formula-buttons" data-target="dp-gain-formula"></div></th>
+		<td><span id="dp-gain-formula">
+\( \begin{aligned}
+x_2 \text{, where} \begin{cases}
+	\text{Default}:        & x_0 = 1 + 0.1 * \lg{\text{ZS}}                                           \\
+	\text{if} \ x_0 > 1.5: & x_1 = 1.5 \times (\frac{x_0}{1.5})^{0.4},  & \text{else} : \ x_1 = \ x_0 \\
+	\text{if} \ x_1 > 1.6: & x_2 = 1.6 \times (\frac{x_1}{1.6})^{0.15}, & \text{else} : \ x_2 = \ x_1 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Free Lab Levels</th>
-		<td>\( \left[ 5 \times (\lg{\text{ZS} + 9})^3 \right] \)</td>
+		<th>Free Lab Levels<br/><div class="copy-latex-formula-buttons" data-target="free-lab-levels-formula"></div></th>
+		<td><span id="free-lab-levels-formula">
+\( \left[ 5 \times (\lg{9 + \text{ZS}})^3 \right] \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>DTP Cost</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} \lessapprox 4.71 & : \ \frac{1}{1 + 0.015 \times \lg{\text{ZS}}} \\ 4.71 \lessapprox \text{ZS} & : \ 0.99 \times (\frac{1}{0.99 \times (1 + 0.015 \times \lg{\text{ZS}})})^{0.5} \\ \end{array} \right. \)</td>
+		<th>DTP Cost<br/><div class="copy-latex-formula-buttons" data-target="dtp-cost-formula"></div></th>
+		<td><span id="dtp-cost-formula">
+\( \begin{aligned}
+x_2 \text{, where} \begin{cases}
+	\text{Default}:         & x_0 = \frac{1}{1 + 0.015 * \lg{\text{ZS}}}                                \\
+	\text{if} \ x_0 < 0.99: & x_1 = 0.99 \times (\frac{x_0}{0.99})^{0.5}, & \text{else} : \ x_1 = \ x_0 \\
+	\text{if} \ x_1 < 0.9:  & x_2 = 0.9 \times (\frac{x_1}{0.9})^{0.1}, & \text{else}   : \ x_2 = \ x_1 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Center DTU Effect</th>
-		<td>\( 1 + 0.02 \times {\lg{\text{ZS}}} \)</td>
+		<th>Center DTU Effect<br/><div class="copy-latex-formula-buttons" data-target="center-dtu-effect-formula"></div></th>
+		<td><span id="center-dtu-effect-formula">
+\( 1 + 0.02 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Ach.29 Reward</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} < 10^4 & : \ 1 + 0.005 \times \lg{\text{ZS}} \\ 10^4 \leq \text{ZS} & : \ 1.02 \times (\frac{1 + 0.005 \times \lg{\text{ZS}}}{1.02})^{0.05} \\ \end{array} \right. \)</td>
+		<th>Ach.29 Reward<br/><div class="copy-latex-formula-buttons" data-target="ach29-reward-formula"></div></th>
+		<td><span id="ach29-reward-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:         & x_0 = 1 + 0.1 * \lg{\text{ZS}}                                             \\
+	\text{if} \ x_0 > 1.02: & x_1 = 1.02 \times (\frac{x_0}{1.02})^{0.05}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Game Speed</th>
-		<td>\( \left\{ \begin{array}{cl} \text{ZS} < 10^{10} & : \ 1 + 0.1 \times \lg{\text{ZS}} \\ 10^{10} \leq \text{ZS} & : \ 2 \times (\frac{1 + 0.1 \times \lg{\text{ZS}}}{2})^{0.02} \\ \end{array} \right. \)</td>
+		<th>Game Speed<br/><div class="copy-latex-formula-buttons" data-target="game-speed-formula"></div></th>
+		<td><span id="game-speed-formula">
+\( \begin{aligned}
+x_1 \text{, where} \begin{cases}
+	\text{Default}:      & x_0 = 1 + 0.1 * \lg{\text{ZS}}                                       \\
+	\text{if} \ x_0 > 2: & x_1 = 2 \times (\frac{x_0}{2})^{0.02}, & \text{else} : \ x_1 = \ x_0 \\
+\end{cases}
+\end{aligned} \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Luck</th>
-		<td>\( 0.07 \times {\lg(20 \times (\frac{\text{ZS}}{20})^{0.45}}) \)</td>
+		<th>Luck<br/><div class="copy-latex-formula-buttons" data-target="luck-add-formula"></div></th>
+		<td><span id="luck-add-formula">
+\( 0.07 \times {\lg(20 \times (\frac{\text{ZS}}{20})^{0.45}}) \)
+		</span></td>
 	</tbody>
 	<tbody>
-		<th>Quality Mult</th>
-		<td>\( 1 + 0.04 \times {\lg{\text{ZS}}} \)</td>
+		<th>Quality<br/><div class="copy-latex-formula-buttons" data-target="quality-mult-formula"></div></th>
+		<td><span id="quality-mult-formula">
+\( 1 + 0.04 \times {\lg{\text{ZS}}} \)
+		</span></td>
 	</tbody>
 </table>
