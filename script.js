@@ -6,6 +6,8 @@ class InitializePageEvent extends Event {
 	}
 }
 
+const notificationManager = new NotificationManager();
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	const content = document.getElementById("content");
 	if (typeof content !== undefined && content !== null) {
@@ -58,7 +60,7 @@ document.addEventListener("initializePage", function(event) {
 				? `\\begin{math} ${latex} \\end{math}`
 				: `\\begin{equation} ${latex} \\end{equation}`
 			).then(_ => {
-				addNotification("Copied to the clipboard!");
+				notificationManager.addNotification("Copied to the clipboard!");
 			}, reason => {
 				addNotification("Failed to copy to the clipboard!");
 				console.error(reason);
@@ -70,9 +72,9 @@ document.addEventListener("initializePage", function(event) {
 				? `<math display="inline">${latex}</math>`
 				: `<math display="block">${latex}</math>`
 			).then(_ => {
-				addNotification("Copied to the clipboard!");
+				notificationManager.addNotification("Copied to the clipboard!");
 			}, reason => {
-				addNotification("Failed to copy to the clipboard!");
+				notificationManager.addNotification("Failed to copy to the clipboard!");
 				console.error(reason);
 			});
 		};
@@ -105,6 +107,7 @@ document.addEventListener("initializePage", function(event) {
 					const dropdownIcon = document.createElement("div");
 					dropdownIcon.classList.add("dropdown-icon");
 					const dropdownImg = document.createElement("img");
+					dropdownImg.classList.add(consts.tabs[i].dropdowns[j].inner.filter);
 					dropdownImg.src = consts.tabs[i].dropdowns[j].inner.icon;
 					dropdownIcon.append(dropdownImg);
 					dropdownOption.append(dropdownIcon);
@@ -128,6 +131,7 @@ document.addEventListener("initializePage", function(event) {
 				}
 
 				const img = document.createElement("img");
+				img.classList.add(consts.tabs[i].filter);
 				img.style.zIndex = 1;
 				img.src = consts.tabs[i].icon;
 				icon.append(img);
@@ -170,53 +174,4 @@ function isMobile() {
 	else {
 		return false;
 	}
-}
-
-function addNotification(text) {
-	const notifications = document.getElementById("notifications");
-	const notification = document.createElement("div");
-	notification.classList.add("notification");
-	{
-		const contents = document.createElement("div");
-		contents.innerText = text;
-		notification.append(contents);
-	}
-
-	notifications.append(notification);
-	for (let i = 0; i < notifications.childNodes.length - 1; i++) {
-		const child = notifications.childNodes[i];
-		child.animate([
-			{ transform: "translateY(" + child.getBoundingClientRect().height + "px)" },
-			{ transform: "translateY(0)" }
-		], {
-			duration: 2000,
-			iterations: 1,
-			easing: "cubic-bezier(0, 0.99, 0, 1)"
-		});
-	}
-
-	const animation = notification.animate([
-		{ transform: "translateY(20em)" },
-		{ transform: "translateY(0)" }
-	], {
-		duration: 2000,
-		iterations: 1,
-		easing: "cubic-bezier(0, 0.99, 0, 1)"
-	});
-	animation.play();
-	animation.onfinish = () => {
-		const animation = notification.animate([
-			{ transform: "translateX(0)" },
-			{ transform: "translateX(20em)" }
-		], {
-			duration: 3000,
-			delay: 8000,
-			iterations: 1,
-			easing: "cubic-bezier(0, 0.99, 0, 1)"
-		});
-		animation.play();
-		animation.onfinish = () => {
-			notifications.removeChild(notification);
-		};
-	};
 }

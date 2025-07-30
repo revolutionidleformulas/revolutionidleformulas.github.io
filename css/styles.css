@@ -195,3 +195,43 @@ p {
 		vertical-align: top;
 	}
 }
+
+.filter-none {
+	filter: unset;
+}
+.filter-white-2-prestige-color {
+	filter: brightness(0) saturate(100%) invert(87%) sepia(9%) saturate(1393%) hue-rotate(62deg) brightness(96%) contrast(86%);
+}
+.filter-white-2-promote-color {
+	filter: brightness(0) saturate(100%) invert(68%) sepia(76%) saturate(488%) hue-rotate(54deg) brightness(93%) contrast(95%);
+}
+.filter-white-2-infinity-color {
+	filter: brightness(0) saturate(100%) invert(51%) sepia(13%) saturate(3848%) hue-rotate(249deg) brightness(93%) contrast(89%);
+}
+.filter-white-2-generator-flash-color {
+	filter: brightness(0) saturate(100%) invert(58%) sepia(82%) saturate(464%) hue-rotate(177deg) brightness(100%) contrast(102%);
+}
+.filter-white-2-eternity-color {
+	filter: brightness(0) saturate(100%) invert(69%) sepia(24%) saturate(5004%) hue-rotate(186deg) brightness(97%) contrast(110%);
+}
+.filter-white-2-dilation-color {
+	filter: brightness(0) saturate(100%) invert(46%) sepia(24%) saturate(1696%) hue-rotate(215deg) brightness(84%) contrast(92%);
+}
+.filter-white-2-unity-color {
+	filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(7251%) hue-rotate(345deg) brightness(101%) contrast(101%);
+}
+.filter-white-2-attacks-color {
+	filter: brightness(0) saturate(100%) invert(41%) sepia(15%) saturate(2426%) hue-rotate(312deg) brightness(112%) contrast(91%);
+}
+.filter-white-2-attacks-prestige-color {
+	filter: brightness(0) saturate(100%) invert(22%) sepia(65%) saturate(1221%) hue-rotate(332deg) brightness(92%) contrast(86%);
+}
+.filter-white-2-achievements-color {
+	filter: brightness(0) saturate(100%) invert(80%) sepia(9%) saturate(3422%) hue-rotate(55deg) brightness(121%) contrast(69%);
+}
+.filter-white-2-time-flux-color {
+	filter: brightness(0) saturate(100%) invert(100%) sepia(52%) saturate(1989%) hue-rotate(356deg) brightness(93%) contrast(78%);
+}
+.filter-white-2-options-color {
+	filter: brightness(0) saturate(100%) invert(58%) sepia(8%) saturate(1380%) hue-rotate(201deg) brightness(86%) contrast(91%);
+}

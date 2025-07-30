@@ -2,6 +2,9 @@ Website: https://revolutionidleformulas.github.io
 
 <h1>Contributing</h1>
 
+<h2>Images</h2>
+Use https://codepen.io/sosuke/pen/Pjoqqp when in need to color an in-game asset (e.g. eternity icon) to a certain color.
+
 <h2>Formulas</h2>
 When adding a formula, consider using one of the following templates for latex:
 <table>
