@@ -24,8 +24,8 @@ let consts;
 					let value = Decimal.pow(1.35, zodiacScore);
 					if (value.e > 1000) value = value.dividedBy(Decimal.pow(10, 1000)).pow(0.1).times(Decimal.pow(10, 1000));
 					if (value.e > 10000) value = value.dividedBy(Decimal.pow(10, 10000)).pow(0.01).times(Decimal.pow(10, 10000));
-					if (value.e > 100000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
-					if (value.e > 500000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.01).times(5000000));
+					if (value.e > 1000000) value = Decimal.pow(10, Decimal.pow(value.log10() / 1000000, 0.25).times(1000000));
+					if (value.e > 5000000) value = Decimal.pow(10, Decimal.pow(value.log10() / 5000000, 0.01).times(5000000));
 					return value;
 				}
 			}],
@@ -103,6 +103,7 @@ let consts;
 			["supernovareq", {
 				calculate: function(zodiacScore) {
 					var value = Decimal.divide(1, Decimal.log10(zodiacScore).times(0.02).add(1));
+					if (value.lt(0.8)) value = value.dividedBy(0.8).pow(0.1).times(0.8);
 					return value;
 				}
 			}],
